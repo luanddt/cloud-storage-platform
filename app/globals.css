@@ -3,9 +3,25 @@
 :root {
   --background: #FFFFFF;
   --foreground: #333F4E;
+  --primary: #FA7275;
+  --primary-foreground: #FFFFFF;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+}
+
+@utility h1 {
+  @apply font-bold text-[46px] leading-[56px];
+}
+
+@utility body-1 {
+  @apply font-normal text-[16px] leading-[24px];
+}
+
+@utility flex-center {
+  @apply flex justify-center items-center;
 }
