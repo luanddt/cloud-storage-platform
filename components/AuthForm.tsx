@@ -17,6 +17,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { createAccount } from "@/lib/actions/user.actions";
+import OTPModal from "@/components/OTPModal";
 
 type AuthFormProps = "sign-in" | "sign-up";
 
@@ -122,6 +123,7 @@ const AuthForm = ({ mode }: { mode: AuthFormProps }) => {
 
           <Button
             type="submit"
+            className="py-6"
             disabled={isLoading}
           >
             {mode === "sign-in" ? "Login" : "Create Account"}
@@ -150,13 +152,20 @@ const AuthForm = ({ mode }: { mode: AuthFormProps }) => {
 
             <Link
               href={mode === "sign-in" ? "/sign-up" : "/sign-in"}
-              className="text-primary hover:text-primary/80 hover:underline"
+              className="text-primary hover:text-primary/80 underline-offset-4 hover:underline"
             >
               {mode === "sign-in" ? "Create Account" : "Login"}
             </Link>
           </div>
         </form>
       </Form>
+
+      {accountId && (
+        <OTPModal
+          email={form.getValues("email")}
+          accountId={accountId}
+        />
+      )}
     </>
   );
 };

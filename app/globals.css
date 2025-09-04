@@ -84,6 +84,10 @@
   @apply font-bold text-[46px] leading-[56px];
 }
 
+@utility h2 {
+  @apply font-bold text-[24px] leading-[36px];
+}
+
 @utility body-1 {
   @apply font-normal text-[16px] leading-[24px];
 }
@@ -104,8 +108,16 @@
   @apply font-semibold text-[15px] leading-[20px];
 }
 
+@utility otp {
+  @apply font-medium text-[40px] leading-[48px];
+}
+
 @utility flex-center {
   @apply flex justify-center items-center;
+}
+
+@utility flex-between {
+  @apply flex justify-between items-center;
 }
 
 .dark {
