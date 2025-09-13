@@ -84,6 +84,10 @@
   @apply font-bold lg:text-[46px] sm:text-[36px] text-[28px] lg:leading-[56px] sm:leading-[44px] leading-[36px];
 }
 
+@utility h2 {
+  @apply font-bold text-[24px] leading-[36px];
+}
+
 @utility body-1 {
   @apply font-normal text-[16px] leading-[24px];
 }
@@ -104,8 +108,16 @@
   @apply font-semibold text-[15px] leading-[20px];
 }
 
+@utility otp {
+  @apply font-medium sm:text-[48px] text-[40px] sm:leading-[60px] leading-[46px];
+}
+
 @utility flex-center {
   @apply flex justify-center items-center;
+}
+
+@utility flex-between {
+  @apply flex justify-between items-center;
 }
 
 .dark {

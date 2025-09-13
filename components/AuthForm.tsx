@@ -17,6 +17,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { createAccount } from "@/lib/actions/user.actions";
+import OTPModal from "@/components/OTPModal";
 
 type AuthFormProps = "sign-in" | "sign-up";
 
@@ -83,9 +84,7 @@ const AuthForm = ({
               render={({ field }) => (
                 <FormItem>
                   <div className="bg-background p-4 shadow-drop-1 rounded-[12px] flex flex-col gap-1.5">
-                    <FormLabel>
-                      Full Name
-                    </FormLabel>
+                    <FormLabel>Full Name</FormLabel>
 
                     <FormControl>
                       <Input
@@ -107,9 +106,7 @@ const AuthForm = ({
             render={({ field }) => (
               <FormItem>
                 <div className="bg-background p-4 shadow-drop-1 rounded-[12px] flex flex-col gap-1.5">
-                  <FormLabel>
-                    Email
-                  </FormLabel>
+                  <FormLabel>Email</FormLabel>
 
                   <FormControl>
                     <Input
@@ -126,6 +123,7 @@ const AuthForm = ({
 
           <Button
             type="submit"
+            className="py-6"
             disabled={isLoading}
           >
             {mode === "sign-in" ? "Login" : "Create Account"}
@@ -159,6 +157,13 @@ const AuthForm = ({
           </div>
         </form>
       </Form>
+
+      {accountId && (
+        <OTPModal
+          email={form.getValues("email")}
+          accountId={accountId}
+        />
+      )}
     </>
   );
 };
