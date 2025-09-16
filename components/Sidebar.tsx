@@ -72,7 +72,6 @@ const Sidebar = ({ fullName, email, avatar }: SidebarProps) => {
           src="/assets/images/files-home.png"
           alt="Files"
           fill
-          className="object-contain"
         />
       </div>
 

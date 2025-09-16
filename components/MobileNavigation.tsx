@@ -14,6 +14,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import FileUploader from "@/components/FileUploader";
 import { Button } from "@/components/ui/button";
+import { signOutUser } from "@/lib/actions/user.actions";
 
 interface MobileNavigationProps {
   fullName: string;
@@ -116,6 +117,7 @@ const MobileNavigation = ({
               type="submit"
               variant="logout"
               size="logout"
+              onClick={async () => await signOutUser()}
             >
               <Image
                 src="/assets/icons/logout.svg"
