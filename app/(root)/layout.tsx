@@ -3,6 +3,7 @@ import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 import { getCurrentUser } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
+import MobileNavigation from "@/components/MobileNavigation";
 
 export const metadata: Metadata = {
   title: "Home - StoreIt",
@@ -23,6 +24,8 @@ const HomeLayout = async ({
       <Sidebar {...currentUser} />
 
       <section className="flex-1">
+        <MobileNavigation {...currentUser} />
+
         <Header />
 
         {children}
