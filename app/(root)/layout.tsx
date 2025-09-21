@@ -26,7 +26,7 @@ const HomeLayout = async ({
       <section className="flex-1">
         <MobileNavigation {...currentUser} />
 
-        <Header />
+        <Header userId={currentUser.$id} accountId={currentUser.accountId} />
 
         {children}
       </section>

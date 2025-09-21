@@ -17,12 +17,16 @@ import { Button } from "@/components/ui/button";
 import { signOutUser } from "@/lib/actions/user.actions";
 
 interface MobileNavigationProps {
+  $id: string;
+  accountId: string;
   fullName: string;
   email: string;
   avatar: string;
 };
 
 const MobileNavigation = ({
+  $id: ownerId,
+  accountId,
   fullName,
   email,
   avatar
@@ -111,7 +115,7 @@ const MobileNavigation = ({
           </ul>
 
           <div className="flex flex-col gap-5">
-            <FileUploader />
+            <FileUploader ownerId={ownerId} accountId={accountId} />
 
             <Button
               type="submit"
