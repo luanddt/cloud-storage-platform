@@ -11,7 +11,7 @@ export const createSessionClient = async () => {
 
   const session = (await cookies()).get("appwrite-session");
 
-  if (!session || !session.value) throw new Error("Failed to create Appwrite session client: missing or invalid session cookie.");
+  if (!session || !session.value) throw new Error("Invalid or missing session.");
 
   client.setSession(session.value);
 
