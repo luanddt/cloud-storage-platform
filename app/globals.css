@@ -3,6 +3,22 @@
 
 @custom-variant dark (&:is(.dark *));
 
+::-webkit-scrollbar {
+  @apply w-0;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-[#FA7275] rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-[#FA7275]/80;
+}
+
 :root {
   --background: #FFFFFF;
   --foreground: #333F4E;
