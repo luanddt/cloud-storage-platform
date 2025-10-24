@@ -112,6 +112,10 @@
   @apply font-bold text-[24px] leading-[36px];
 }
 
+@utility h5 {
+  @apply font-semibold text-[16px] leading-[24px];
+}
+
 @utility body-1 {
   @apply font-normal text-[16px] leading-[24px];
 }

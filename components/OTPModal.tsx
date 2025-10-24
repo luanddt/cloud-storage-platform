@@ -90,6 +90,7 @@ const OTPModal = ({ accountId, email }: OTPModalProps) => {
         <AlertDialogFooter>
           <AlertDialogAction
             className="py-4 button"
+            disabled={isLoading}
             onClick={handleSubmit}
           >
             <p>Submit</p>
