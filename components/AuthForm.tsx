@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import Link from "next/link";
 import { createAccount } from "@/lib/actions/user.actions";
+import OTPModal from "@/components/OTPModal";
 
 const authFormSchema = (formType: FormType) => {
   return (
@@ -118,6 +119,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
 
           <Button
             type="submit"
+            className="py-6"
             disabled={isLoading}
           >
             <p className="button">
@@ -153,6 +155,13 @@ const AuthForm = ({ type }: AuthFormProps) => {
           </div>
         </form>
       </Form>
+
+      {accountId && (
+        <OTPModal
+          accountId={accountId}
+          email={form.getValues("email")}
+        />
+      )}
     </>
   );
 };

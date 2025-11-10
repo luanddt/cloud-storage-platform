@@ -90,6 +90,10 @@
   @apply font-bold sm:text-[46px] text-[34px] sm:leading-14 leading-[42px];
 }
 
+@utility h2 {
+  @apply font-bold text-[24px] leading-9;
+}
+
 @utility body-1 {
   @apply font-normal text-[16px] leading-6;
 }
@@ -112,4 +116,8 @@
 
 @utility flex-center {
   @apply flex justify-center items-center;
+}
+
+@utility flex-between {
+  @apply flex justify-between items-center;
 }
