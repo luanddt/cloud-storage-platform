@@ -3,7 +3,7 @@ import Image from "next/image";
 const AuthLayout = ({
   children
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) => {
   return (
     <div className="flex min-h-screen">
@@ -15,7 +15,6 @@ const AuthLayout = ({
               alt="StoreIt"
               width={224}
               height={82}
-              className=""
             />
           </div>
 

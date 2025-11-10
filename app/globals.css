@@ -3,6 +3,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+::-webkit-scrollbar {
+  @apply hidden;
+}
+
 :root {
   --background: #FFFFFF;
   --foreground: #333F4E;
