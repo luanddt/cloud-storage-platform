@@ -6,6 +6,7 @@ import { appwriteConfig } from "@/lib/appwrite/config";
 import { ID, Query } from "node-appwrite";
 import { parseStringify } from "@/lib/utils";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 const handleError = (message: string, error: unknown) => {
   console.log(message, error);
@@ -111,5 +112,35 @@ export const getCurrentUser = async () => {
     return parseStringify(user.documents[0]);
   } catch (error) {
     console.log(error);
+  };
+};
+
+export const signOutUser = async () => {
+  const { account } = await createSessionClient();
+
+  try {
+    await account.deleteSession("current");
+
+    (await cookies()).delete("appwrite-session");
+  } catch (error) {
+    handleError("Failed to sign out user", error);
+  } finally {
+    redirect("/sign-in");
+  };
+};
+
+export const signInUser = async ({ email }: { email: string }) => {
+  try {
+    const existingUser = await getUserByEmail(email);
+
+    if (existingUser) {
+      await sendEmailOTP({ email });
+
+      return parseStringify({ accountId: existingUser.accountId });
+    };
+
+    return parseStringify({ accountId: null, error: "User not found or failed to send OTP" });
+  } catch (error) {
+    handleError("Failed to sign in user or send OTP", error);
   };
 };
