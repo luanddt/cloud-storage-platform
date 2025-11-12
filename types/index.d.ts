@@ -14,3 +14,9 @@ interface SidebarProps {
   email: string;
   avatar: string;
 };
+
+interface MobileNavigationProps {
+  fullName: string;
+  email: string;
+  avatar: string;
+};
