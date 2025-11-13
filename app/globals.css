@@ -16,6 +16,7 @@
 
   --drop-1: 0 10px 30px 0 rgba(66, 71, 97, 0.1);
   --drop-2: 0 8px 30px 0 rgba(65, 89, 214, 0.3);
+  --drop-3: 0 8px 30px 0 rgba(65, 89, 214, 0.1);
 
   --radius: 0.625rem;
   --card: oklch(1 0 0);
@@ -56,6 +57,7 @@
 
   --shadow-drop-1: var(--drop-1);
   --shadow-drop-2: var(--drop-2);
+  --shadow-drop-3: var(--drop-3);
 
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -96,6 +98,10 @@
 
 @utility h2 {
   @apply font-bold text-[24px] leading-9;
+}
+
+@utility h4 {
+  @apply font-medium text-[18px] leading-5;
 }
 
 @utility h5 {
