@@ -51,3 +51,11 @@ interface HeaderProps {
   userId: string;
   accountId: string;
 };
+
+interface HomeProps {
+  params?: Promise<SegmentParams>;
+};
+
+type ModelsDocument = Models.Document & {
+  email: string;
+};
