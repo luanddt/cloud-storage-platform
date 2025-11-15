@@ -1,7 +1,6 @@
 import Card from "@/components/Card";
 import Sort from "@/components/Sort";
 import { getFiles } from "@/lib/actions/file.actions";
-import { Models } from "node-appwrite";
 
 const Home = async ({ params }: HomeProps) => {
   const type = ((await params)?.type as string) || "";
@@ -22,7 +21,7 @@ const Home = async ({ params }: HomeProps) => {
             </p>
 
             <h5 className="h5">
-              12h5GB
+              0 MB
             </h5>
           </div>
 
@@ -38,7 +37,7 @@ const Home = async ({ params }: HomeProps) => {
 
       {files.total > 0 ? (
         <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
-          {files.documents.map((file: Models.Document) => (
+          {files.documents.map((file: ModelsDocument) => (
             <Card key={file.$id} file={file} />
           ))}
         </div>
