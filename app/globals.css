@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+@utility h1 {
+  @apply font-bold text-[46px] leading-14;
+}
+
+@utility body-1 {
+  @apply font-normal text-[16px] leading-6;
+}
+
+@utility flex-center {
+  @apply flex justify-center items-center;
+}
