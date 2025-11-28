@@ -3,6 +3,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+::-webkit-scrollbar {
+  @apply overflow-hidden;
+}
+
 :root {
   --radius: 0.625rem;
   --background: #FFFFFF;
