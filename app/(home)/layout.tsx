@@ -1,16 +1,22 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
+import { getCurrentUser } from "@/lib/actions/user.actions";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Home - StoreIt",
   description: "Cloud Storage Platform"
 };
 
-const HomeLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+const HomeLayout = async ({ children }: Readonly<{ children: React.ReactNode }>) => {
+  const currentUser = await getCurrentUser();
+
+  if (!currentUser) return redirect("/sign-in");
+
   return (
     <div className="h-screen flex">
-      <Sidebar />
+      <Sidebar {...currentUser} />
 
       <div className="flex-1 flex flex-col">
         <Header />
