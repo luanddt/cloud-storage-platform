@@ -5,7 +5,7 @@ import FileUploader from "@/components/FileUploader";
 
 const Header = () => {
   return (
-    <header className="p-5 lg:py-7 sm:flex-between hidden">
+    <header className="py-7 mr-7 flex-between max-sm:hidden">
       <Search />
 
       <div className="flex-center gap-4">

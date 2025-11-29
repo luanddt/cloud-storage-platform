@@ -10,14 +10,14 @@ const Sidebar = ({ fullName, email, avatar }: SidebarProps) => {
   const pathname = usePathname();
 
   return (
-    <aside className="px-5 py-7 sm:flex flex-col gap-5 hidden">
+    <aside className="px-5 py-7 flex flex-col max-sm:hidden">
       <Link href="/">
         <Image
           src="/assets/icons/logo-full.svg"
           alt="StoreIt"
           width={162}
           height={52}
-          className="max-lg:hidden"
+          className="h-[52px] max-lg:hidden"
         />
 
         <Image
@@ -25,11 +25,11 @@ const Sidebar = ({ fullName, email, avatar }: SidebarProps) => {
           alt="StoreIt"
           width={52}
           height={52}
-          className="lg:hidden"
+          className="h-[52px] lg:hidden"
         />
       </Link>
 
-      <ul className="flex-1 flex flex-col gap-5">
+      <ul className="mt-7 flex-1 flex flex-col gap-5">
         {navItems.map(({ name, icon, url }) => (
           <li key={name}>
             <Link
@@ -66,7 +66,7 @@ const Sidebar = ({ fullName, email, avatar }: SidebarProps) => {
         />
       </div>
 
-      <div className="flex items-center gap-3.5">
+      <div className="lg:mt-4 flex items-center gap-3.5">
         <Image
           src={avatar}
           alt={fullName}
