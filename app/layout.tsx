@@ -19,7 +19,7 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang="en">
-      <body className={`${poppins.className}`}>
+      <body className={`bg-background ${poppins.className} text-foreground`}>
         {children}
       </body>
     </html>

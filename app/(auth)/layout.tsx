@@ -13,7 +13,7 @@ const AuthLayout = ({
 }>) => {
   return (
     <div className="min-h-screen flex">
-      <section className="bg-[#FA7275] p-10 xl:w-2/5 w-1/2 lg:flex-center hidden">
+      <section className="bg-primary p-10 xl:w-2/5 w-1/2 lg:flex-center hidden">
         <div className="max-w-[430px] flex flex-col items-center gap-12">
           <div className="w-full">
             <Image
@@ -24,7 +24,7 @@ const AuthLayout = ({
             />
           </div>
 
-          <div className="text-[#FFFFFF] flex flex-col gap-5">
+          <div className="text-primary-foreground flex flex-col gap-5">
             <h1 className="h1">
               Manage your files the best way
             </h1>
