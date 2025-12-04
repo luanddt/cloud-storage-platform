@@ -81,7 +81,7 @@
 }
 
 @utility h1 {
-  @apply font-bold text-[46px] leading-14;
+  @apply font-bold lg:text-[46px] text-[34px] lg:leading-14 leading-[42px];
 }
 
 @utility body-1 {
