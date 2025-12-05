@@ -84,6 +84,10 @@
   @apply font-bold lg:text-[46px] text-[34px] lg:leading-14 leading-[42px];
 }
 
+@utility h2 {
+  @apply font-bold text-[24px] leading-9;
+}
+
 @utility body-1 {
   @apply font-normal text-[16px] leading-6;
 }
@@ -104,6 +108,14 @@
   @apply font-semibold text-[15px] leading-5;
 }
 
+@utility option {
+  @apply font-medium text-[40px] leading-12;
+}
+
 @utility flex-center {
   @apply flex justify-center items-center;
+}
+
+@utility flex-between {
+  @apply flex justify-between items-center;
 }
