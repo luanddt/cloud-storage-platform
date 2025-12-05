@@ -60,7 +60,7 @@ const OTPModal = ({
           alt="Close"
           width={24}
           height={24}
-          className="absolute top-2 right-2 cursor-pointer"
+          className="absolute top-2 right-2 cursor-pointer hover:opacity-90"
           onClick={() => setIsOpen(false)}
         />
 
