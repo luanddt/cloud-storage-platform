@@ -132,6 +132,7 @@ const OTPModal = ({
             <Button
               type="button"
               variant="link"
+              className="sub-2"
               onClick={handleResendOTP}
             >
               Click to resend.

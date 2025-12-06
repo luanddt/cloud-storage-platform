@@ -14,7 +14,7 @@ const Sidebar = ({
   const pathname = usePathname();
 
   return (
-    <aside className="px-5 py-7 sm:flex flex-col hidden">
+    <aside className="px-5 py-7 xl:w-[325px] lg:w-[280px] overflow-auto sm:flex flex-col hidden">
       <Link href="/">
         <Image
           src="/assets/icons/logo-full.svg"
@@ -79,12 +79,12 @@ const Sidebar = ({
           className="object-cover rounded-full"
         />
 
-        <div className="w-50 line-clamp-1 flex flex-col gap-1 max-lg:hidden">
-          <h5 className="h5">
+        <div className="flex flex-col gap-1 max-lg:hidden">
+          <h5 className="h5 line-clamp-1">
             {fullName}
           </h5>
 
-          <p className="body-2 text-muted-foreground">
+          <p className="body-2 text-muted-foreground line-clamp-1">
             {email}
           </p>
         </div>
