@@ -17,6 +17,7 @@ import { navItems } from "@/constants";
 import { cn } from "@/lib/utils";
 import FileUploader from "@/components/FileUploader";
 import { Button } from "@/components/ui/button";
+import { signOutUser } from "@/lib/actions/user.actions";
 
 const MobileNavigation = ({
   fullName,
@@ -109,6 +110,7 @@ const MobileNavigation = ({
           <Button
             type="submit"
             className="p-3.5 bg-primary/10 hover:bg-primary/20"
+            onClick={async () => await signOutUser()}
           >
             <Image
               src="/assets/icons/logout.svg"
