@@ -17,6 +17,7 @@ import {
   FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import OTPModal from "./OTPModal";
 
 const authFormSchema = (formType: FormType) => {
   return (
@@ -156,6 +157,13 @@ const AuthForm = ({ type }: AuthFormProps) => {
           </div>
         </form>
       </Form>
+
+      {accountId && (
+        <OTPModal
+          accountId={accountId}
+          email={form.getValues("email")}
+        />
+      )}
     </>
   );
 };
