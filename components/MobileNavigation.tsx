@@ -19,7 +19,7 @@ import FileUploader from "@/components/FileUploader";
 import { Button } from "@/components/ui/button";
 import { signOutUser } from "@/lib/actions/user.actions";
 
-const MobileNavigation = ({ fullName, email, avatar }: MobileNavigationProps) => {
+const MobileNavigation = ({ $id, accountId, fullName, email, avatar }: MobileNavigationProps) => {
   const pathname = usePathname();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -66,38 +66,39 @@ const MobileNavigation = ({ fullName, email, avatar }: MobileNavigationProps) =>
 
           <Separator />
 
-          <div className="flex flex-col gap-5">
+          <ul className="flex flex-col gap-5">
             {navItems.map(({ name, icon, url }) => (
-              <Link
-                key={name}
-                href={url}
-                className={cn(
-                  "hover:bg-primary px-8.5 py-3.5 rounded-full shadow-drop-2 group flex items-center gap-4.5",
-                  pathname === url && "bg-primary hover:bg-primary/90"
-                )}
-                onClick={() => setIsOpen(false)}
-              >
-                <Image
-                  src={icon}
-                  alt={name}
-                  width={24}
-                  height={24}
+              <li key={name}>
+                <Link
+                  href={url}
                   className={cn(
-                    "invert group-hover:invert-0 opacity-25 group-hover:opacity-100",
-                    pathname === url && "invert-0 opacity-100"
+                    "hover:bg-primary px-8.5 py-3.5 rounded-full shadow-drop-2 group flex items-center gap-4.5",
+                    pathname === url && "bg-primary hover:bg-primary/90"
                   )}
-                />
+                  onClick={() => setIsOpen(false)}
+                >
+                  <Image
+                    src={icon}
+                    alt={name}
+                    width={24}
+                    height={24}
+                    className={cn(
+                      "invert group-hover:invert-0 opacity-25 group-hover:opacity-100",
+                      pathname === url && "invert-0 opacity-100"
+                    )}
+                  />
 
-                <h5 className={cn("h5 group-hover:text-primary-foreground", pathname === url && "text-primary-foreground")}>
-                  {name}
-                </h5>
-              </Link>
+                  <h5 className={cn("h5 group-hover:text-primary-foreground", pathname === url && "text-primary-foreground")}>
+                    {name}
+                  </h5>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
 
           <Separator />
 
-          <FileUploader />
+          <FileUploader ownerId={$id} accountId={accountId} />
 
           <Separator />
 

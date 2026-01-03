@@ -29,40 +29,41 @@ const Sidebar = ({ fullName, email, avatar }: SidebarProps) => {
         />
       </Link>
 
-      <div className="flex-1 flex flex-col gap-5">
+      <ul className="flex-1 flex flex-col gap-5">
         {navItems.map(({ name, icon, url }) => (
-          <Link
-            key={name}
-            href={url}
-            className={cn(
-              "hover:bg-primary lg:px-8.5 p-3.5 lg:rounded-full rounded-2xl shadow-drop-2 group flex items-center gap-4.5",
-              pathname === url && "bg-primary hover:bg-primary/90"
-            )}
-          >
-            <Image
-              src={icon}
-              alt={name}
-              width={24}
-              height={24}
+          <li key={name}>
+            <Link
+              href={url}
               className={cn(
-                "invert group-hover:invert-0 opacity-25 group-hover:opacity-100",
-                pathname === url && "invert-0 opacity-100"
+                "hover:bg-primary lg:px-8.5 p-3.5 lg:rounded-full rounded-2xl shadow-drop-2 group flex items-center gap-4.5",
+                pathname === url && "bg-primary hover:bg-primary/90"
               )}
-            />
+            >
+              <Image
+                src={icon}
+                alt={name}
+                width={24}
+                height={24}
+                className={cn(
+                  "invert group-hover:invert-0 opacity-25 group-hover:opacity-100",
+                  pathname === url && "invert-0 opacity-100"
+                )}
+              />
 
-            <h5 className={cn("h5 group-hover:text-primary-foreground max-lg:hidden", pathname === url && "text-primary-foreground")}>
-              {name}
-            </h5>
-          </Link>
+              <h5 className={cn("h5 group-hover:text-primary-foreground max-lg:hidden", pathname === url && "text-primary-foreground")}>
+                {name}
+              </h5>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
 
       <Image
         src="/assets/images/files-bg.png"
         alt="Files"
-        width={500}
-        height={500}
-        className="max-lg:hidden"
+        width={254}
+        height={210}
+        className="w-full h-52.5 max-lg:hidden"
       />
 
       <div className="flex items-center gap-3.5">

@@ -4,13 +4,13 @@ import Search from "@/components/Search";
 import FileUploader from "@/components/FileUploader";
 import { signOutUser } from "@/lib/actions/user.actions";
 
-const Header = () => {
+const Header = ({ userId, accountId }: HeaderProps) => {
   return (
     <header className="py-7 mr-7 sm:flex-between hidden">
       <Search />
 
       <div className="flex items-center gap-4">
-        <FileUploader />
+        <FileUploader ownerId={userId} accountId={accountId} />
 
         <form
           action={async () => {

@@ -1,5 +1,7 @@
 type FormType = "sign-in" | "sign-up";
 
+type FileType = "document" | "image" | "video" | "audio" | "other";
+
 interface AuthFormProps {
   type: FormType;
 };
@@ -16,7 +18,35 @@ interface SidebarProps {
 };
 
 interface MobileNavigationProps {
+  $id: string;
+  accountId: string;
   fullName: string;
   email: string;
   avatar: string;
+};
+
+interface ThumbnailProps {
+  name: string;
+  type: string;
+  extension: string;
+  url?: string;
+  className?: string;
+  iconClassName?: string;
+};
+
+interface UploadFileProps {
+  file: File;
+  ownerId: string;
+  accountId: string;
+  path: string;
+};
+
+interface FileUploaderProps {
+  ownerId: string;
+  accountId: string;
+};
+
+interface HeaderProps {
+  userId: string;
+  accountId: string;
 };
