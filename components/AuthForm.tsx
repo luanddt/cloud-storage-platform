@@ -6,7 +6,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { createAccount } from "@/lib/actions/user.actions";
+import { createAccount, signInUser } from "@/lib/actions/user.actions";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -47,14 +47,14 @@ const AuthForm = ({ type }: AuthFormProps) => {
     setErrorMessage("");
 
     try {
-      const user = await createAccount({
+      const user = type === "sign-up" ? await createAccount({
         fullName: values.fullName || "",
         email: values.email
-      });
+      }) : await signInUser({ email: values.email });
 
       setAccountId(user.accountId);
     } catch {
-      setErrorMessage("Failed to create account. Please try again.");
+      setErrorMessage(type === "sign-up" ? "Failed to create account. Please try again." : "Failed to login. Please try again.");
     } finally {
       setIsLoading(false);
     };

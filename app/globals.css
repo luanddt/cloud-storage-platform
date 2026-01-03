@@ -3,6 +3,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+::-webkit-scrollbar {
+  @apply hidden;
+}
+
 :root {
   --radius: 0.625rem;
   --background: #FFFFFF;
@@ -131,6 +135,10 @@
 
 @utility h2 {
   @apply font-bold text-[24px] leading-9;
+}
+
+@utility h5 {
+  @apply font-semibold text-[16px] leading-6;
 }
 
 @utility body-1 {
