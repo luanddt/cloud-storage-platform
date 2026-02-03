@@ -83,6 +83,7 @@
   --color-muted-foreground: var(--muted-foreground);
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 8px);
+  --radius-4xl: calc(var(--radius) + 16px);
   --shadow-drop-1: var(--shadow-1);
   --shadow-drop-2: var(--shadow-2);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -114,15 +115,22 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
 }
 
 @utility flex-center {
   @apply flex justify-center items-center;
 }
 
+@utility flex-between {
+  @apply flex justify-between items-center;
+}
+
 @utility h1 {
   @apply font-bold lg:text-[46px] text-[34px] lg:leading-14 leading-10.5;
+}
+
+@utility h2 {
+  @apply font-bold text-[24px] leading-9;
 }
 
 @utility body-1 {
@@ -143,4 +151,8 @@
 
 @utility button {
   @apply font-semibold text-[15px] leading-5;
+}
+
+@utility option {
+  @apply font-medium text-[40px] leading-12;
 }
