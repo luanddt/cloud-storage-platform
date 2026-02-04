@@ -18,11 +18,13 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
-        link: "text-primary hover:text-primary/90 hover:underline"
+        link: "text-primary hover:text-primary/90 hover:underline",
+        logout: "bg-primary/10 hover:bg-primary/20 shadow-drop-2"
       },
       size: {
         default: "py-6",
         otp: "py-4",
+        logout: "p-3.5",
         xs: "h-6 gap-1 rounded-md px-2 text-xs has-[>svg]:px-1.5 [&_svg:not([class*='size-'])]:size-3",
         sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
