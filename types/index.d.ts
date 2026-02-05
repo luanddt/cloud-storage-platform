@@ -8,3 +8,9 @@ interface OTPModalProps {
   accountId: string;
   email: string;
 };
+
+interface SidebarProps {
+  fullName: string;
+  email: string;
+  avatar: string;
+};

@@ -45,8 +45,8 @@ const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           src="/assets/icons/logo-full.svg"
           alt="StoreIt"
           width={200}
-          height={74}
-          className="lg:hidden h-18.5"
+          height={82}
+          className="lg:hidden h-20.5"
         />
 
         {children}

@@ -7,7 +7,7 @@ import {
 } from "node-appwrite";
 import { avatarPlaceholderUrl } from "@/constants";
 import { parseStringify } from "@/lib/utils";
-import { createAdminClient } from "@/lib/appwrite";
+import { createAdminClient, createSessionClient } from "@/lib/appwrite";
 import { appwriteConfig } from "@/lib/appwrite/config";
 
 const handleError = (
@@ -97,5 +97,23 @@ export const verifySecret = async ({
     return parseStringify({ sessionId: session.$id });
   } catch (error) {
     handleError("Failed to verify OTP.", error);
+  };
+};
+
+export const getCurrentUser = async () => {
+  try {
+    const { account, databases } = await createSessionClient();
+
+    const result = await account.get();
+
+    const user = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.userTableId,
+      [Query.equal("accountId", result.$id)]
+    );
+
+    return parseStringify(user.documents[0]);
+  } catch (error) {
+    console.log("Failed to get current user.", error);
   };
 };

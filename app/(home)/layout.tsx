@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { getCurrentUser } from "@/lib/actions/user.actions";
 import Header from "@/components/header";
 import Sidebar from "@/components/sidebar";
 import MobileNavigation from "@/components/mobile-navigation";
@@ -8,10 +10,14 @@ export const metadata: Metadata = {
   description: "Cloud Storage Platform"
 };
 
-const HomeLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+const HomeLayout = async ({ children }: Readonly<{ children: React.ReactNode }>) => {
+  const currentUser = await getCurrentUser();
+
+  if (!currentUser) return redirect("/login");
+
   return (
     <div className="flex h-screen">
-      <Sidebar />
+      <Sidebar {...currentUser} />
 
       <div className="flex-1 flex flex-col">
         <MobileNavigation />
