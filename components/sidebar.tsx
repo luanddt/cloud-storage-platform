@@ -84,7 +84,7 @@ const Sidebar = ({
             {fullName}
           </h5>
 
-          <p className="body-2 text-muted-foreground line-clamp-1">
+          <p className="body-1 text-muted-foreground line-clamp-1">
             {email}
           </p>
         </div>

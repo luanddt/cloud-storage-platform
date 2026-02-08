@@ -20,7 +20,7 @@ const HomeLayout = async ({ children }: Readonly<{ children: React.ReactNode }>)
       <Sidebar {...currentUser} />
 
       <div className="flex-1 flex flex-col">
-        <MobileNavigation />
+        <MobileNavigation {...currentUser} />
 
         <Header />
 
