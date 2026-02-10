@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { signOutUser } from "@/lib/actions/user.actions";
 import { Button } from "@/components/ui/button";
 import Search from "@/components/search";
 import FileUploader from "@/components/file-uploader";
@@ -11,7 +12,13 @@ const Header = () => {
       <div className="flex items-center gap-4">
         <FileUploader />
 
-        <form>
+        <form
+          action={async () => {
+            "use server";
+
+            await signOutUser();
+          }}
+        >
           <Button
             type="submit"
             variant="logout"

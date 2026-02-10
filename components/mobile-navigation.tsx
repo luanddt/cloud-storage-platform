@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { navItems } from "@/constants";
 import { cn } from "@/lib/utils";
+import { signOutUser } from "@/lib/actions/user.actions";
 import {
   Sheet,
   SheetContent,
@@ -15,8 +16,8 @@ import {
   SheetTrigger
 } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
 import FileUploader from "@/components/file-uploader";
-import { Button } from "./ui/button";
 
 const MobileNavigation = ({
   fullName,
@@ -81,6 +82,7 @@ const MobileNavigation = ({
                     "hover:bg-primary px-7.5 py-3.5 rounded-full shadow-drop-2 group flex items-center gap-4",
                     pathname === item.url && "bg-primary hover:bg-primary/90"
                   )}
+                  onClick={() => setIsOpen(false)}
                 >
                   <Image
                     src={item.icon}
@@ -111,6 +113,7 @@ const MobileNavigation = ({
             type="submit"
             variant="logout"
             size="logout"
+            onClick={async () => await signOutUser()}
           >
             <Image
               src="/assets/icons/logout.svg"

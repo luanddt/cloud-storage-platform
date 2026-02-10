@@ -1,6 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import {
   ID,
   Query
@@ -115,5 +116,35 @@ export const getCurrentUser = async () => {
     return parseStringify(user.documents[0]);
   } catch (error) {
     console.log("Failed to get current user.", error);
+  };
+};
+
+export const signOutUser = async () => {
+  const { account } = await createSessionClient();
+
+  try {
+    await account.deleteSession("current");
+
+    (await cookies()).delete("appwrite-session");
+  } catch (error) {
+    handleError("Failed to sign out user.", error);
+  } finally {
+    redirect("/login");
+  };
+};
+
+export const signInUser = async ({ email }: { email: string }) => {
+  try {
+    const existingUser = await getUserByEmail(email);
+
+    if (existingUser) {
+      await sendEmailOTP({ email });
+
+      return parseStringify({ accountId: existingUser.accountId });
+    };
+
+    return parseStringify({ accountId: null, error: "User not found." });
+  } catch (error) {
+    handleError("Failed to sign in user.", error);
   };
 };
