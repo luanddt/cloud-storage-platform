@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
         hostname: "cdn.pixabay.com"
       }
     ]
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "100MB"
+    }
   }
 };
 

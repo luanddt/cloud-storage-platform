@@ -20,6 +20,8 @@ import { Button } from "@/components/ui/button";
 import FileUploader from "@/components/file-uploader";
 
 const MobileNavigation = ({
+  $id,
+  accountId,
   fullName,
   email,
   avatar
@@ -105,7 +107,11 @@ const MobileNavigation = ({
 
           <Separator />
 
-          <FileUploader />
+          <FileUploader
+            ownerId={$id}
+            accountId={accountId}
+            onClose={() => setIsOpen(false)}
+          />
 
           <Separator />
 
