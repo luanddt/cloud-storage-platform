@@ -40,7 +40,7 @@ const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         </div>
       </section>
 
-      <section className="bg-background p-10 max-lg:px-4 flex-1 flex-center max-lg:justify-start flex-col gap-16">
+      <section className="p-10 max-lg:px-4 flex-1 flex-center max-lg:justify-start flex-col gap-16">
         <Image
           src="/assets/icons/logo-full.svg"
           alt="StoreIt"
