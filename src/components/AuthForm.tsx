@@ -17,23 +17,21 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
+import { createAccount } from "@/lib/actions/user.actions";
 
 const authFormSchema = (authMode: AuthMode) => {
   return (
     z.object({
-      fullName: authMode === "create-account" ? z.string().min(
-        2,
-        "Full Name must be at least 2 characters."
-      ).max(
-        50,
-        "Full Name must be at most 50 characters."
-      ) : z.string().optional(),
+      fullName: authMode === "create-account"
+        ? z.string().min(2, "Full Name must be at least 2 characters.").max(50, "Full Name must be at most 50 characters.")
+        : z.string().optional(),
       email: z.email("Invalid email address.")
     })
   );
 };
 
 const AuthForm = ({ auth }: AuthFormProps) => {
+  const [accountId, setAccountId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -47,7 +45,21 @@ const AuthForm = ({ auth }: AuthFormProps) => {
   });
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+    setIsLoading(true);
+    setErrorMessage("");
+
+    try {
+      const user = await createAccount({
+        fullName: data.fullName || "",
+        email: data.email
+      });
+
+      setAccountId(user.accountId);
+    } catch {
+      setErrorMessage("Failed to create account. Please try again.");
+    } finally {
+      setIsLoading(false);
+    };
   };
 
   return (

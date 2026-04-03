@@ -42,6 +42,7 @@ const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
             alt="Files"
             width={342}
             height={342}
+            priority
           />
         </div>
       </section>
