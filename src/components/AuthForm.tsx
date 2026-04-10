@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { createAccount } from "@/lib/actions/user.actions";
 
 const authFormSchema = (formMode: FormMode) => {
   return (
@@ -27,6 +28,7 @@ const authFormSchema = (formMode: FormMode) => {
 };
 
 const AuthForm = ({ mode }: AuthFormProps) => {
+  const [accountId, setAccountId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -40,7 +42,21 @@ const AuthForm = ({ mode }: AuthFormProps) => {
   });
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+    setIsLoading(true);
+    setErrorMessage("");
+
+    try {
+      const user = await createAccount({
+        fullName: data.fullName || "",
+        email: data.email
+      });
+
+      setAccountId(user.accountId);
+    } catch {
+      setErrorMessage("Failed to create account. Please try again.");
+    } finally {
+      setIsLoading(false);
+    };
   };
 
   return (
