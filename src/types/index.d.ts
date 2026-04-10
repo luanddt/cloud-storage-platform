@@ -13,3 +13,8 @@ interface CreateAccountProps {
   fullName: string;
   email: string;
 };
+
+interface OTPModalProps {
+  accountId: string;
+  email: string;
+};
