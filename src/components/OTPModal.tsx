@@ -1,5 +1,10 @@
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import {
+  sendEmailOTP,
+  verifyEmailOTP
+} from "@/lib/actions/user.actions";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,14 +23,33 @@ import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { Button } from "@/components/ui/button";
 
 const OTPModal = ({ accountId, email }: OTPModalProps) => {
+  const router = useRouter();
+
   const [isOpen, setIsOpen] = useState(true);
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = async () => { };
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
 
-  const handleResendOTP = async () => { };
+    setIsLoading(true);
+    setErrorMessage("");
+
+    try {
+      const sessionId = await verifyEmailOTP({ accountId, password });
+
+      if (sessionId) router.push("/");
+    } catch {
+      setErrorMessage("Invalid OTP. Please try again.");
+    } finally {
+      setIsLoading(false);
+    };
+  };
+
+  const handleResendOTP = async () => {
+    await sendEmailOTP({ email });
+  };
 
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
