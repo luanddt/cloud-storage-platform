@@ -6,6 +6,7 @@ import { createAdminClient, createSessionClient } from "@/lib/appwrite";
 import { appwriteConfig } from "@/lib/appwrite/config";
 import { parseStringify } from "@/lib/utils";
 import { avatar } from "@/constants";
+import { redirect } from "next/navigation";
 
 const handleError = (
   message: string,
@@ -124,5 +125,35 @@ export const getCurrentUser = async () => {
     return parseStringify(user.documents[0]);
   } catch (error) {
     console.log(error);
+  };
+};
+
+export const logout = async () => {
+  const { account } = await createSessionClient();
+
+  try {
+    await account.deleteSession("current");
+
+    (await cookies()).delete("appwrite-session");
+  } catch (error) {
+    handleError("Failed to logout", error);
+  } finally {
+    redirect("/login");
+  };
+};
+
+export const login = async ({ email }: { email: string }) => {
+  try {
+    const existingUser = await getUserByEmail(email);
+
+    if (existingUser) {
+      await sendEmailOTP({ email });
+
+      return parseStringify({ accountId: existingUser.accountId });
+    };
+
+    return parseStringify({ accountId: null, error: "User not found" });
+  } catch (error) {
+    handleError("Failed to login", error);
   };
 };

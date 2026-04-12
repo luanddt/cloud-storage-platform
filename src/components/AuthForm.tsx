@@ -6,7 +6,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { createAccount } from "@/lib/actions/user.actions";
+import { createAccount, login } from "@/lib/actions/user.actions";
 import {
   Field,
   FieldError,
@@ -21,7 +21,9 @@ const authFormSchema = (formMode: FormMode) => {
   return (
     z.object({
       fullName: formMode === "create-account"
-        ? z.string().min(2, "Full Name must be at least 2 characters.").max(50, "Full Name must be at most 50 characters.")
+        ? z.string()
+          .min(2, "Full Name must be at least 2 characters.")
+          .max(50, "Full Name must be at most 50 characters.")
         : z.string().optional(),
       email: z.email("Invalid email address.")
     })
@@ -47,14 +49,20 @@ const AuthForm = ({ mode }: AuthFormProps) => {
     setErrorMessage("");
 
     try {
-      const user = await createAccount({
-        fullName: data.fullName || "",
-        email: data.email
-      });
+      const user = mode === "create-account"
+        ? await createAccount({
+          fullName: data.fullName || "",
+          email: data.email
+        })
+        : await login({ email: data.email });
 
       setAccountId(user.accountId);
     } catch {
-      setErrorMessage("Failed to create account. Please try again.");
+      setErrorMessage(
+        mode === "create-account"
+          ? "Failed to create account. Please try again."
+          : "Failed to login. Please try again."
+      );
     } finally {
       setIsLoading(false);
     };

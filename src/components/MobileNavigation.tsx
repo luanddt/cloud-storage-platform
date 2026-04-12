@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { logout } from "@/lib/actions/user.actions";
 import {
   Sheet,
   SheetContent,
@@ -115,6 +116,7 @@ const MobileNavigation = ({ fullName, email, avatar }: MobileNavigationProps) =>
           <Button
             type="submit"
             className="bg-primary/10 hover:bg-primary/20 py-3.5"
+            onClick={async () => await logout()}
           >
             <Image
               src="/assets/icons/logout.svg"
