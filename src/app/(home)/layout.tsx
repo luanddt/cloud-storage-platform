@@ -22,7 +22,7 @@ const HomeLayout = async ({ children }: Readonly<{ children: React.ReactNode }>)
       <div className="flex-1 flex flex-col">
         <Header />
 
-        <MobileNavigation />
+        <MobileNavigation {...currentUser} />
 
         <main className="bg-[#F2F4F8] sm:px-9 px-5 sm:py-10 py-7 sm:mr-7 sm:mb-7 sm:rounded-30 flex-1 overflow-auto">
           {children}
