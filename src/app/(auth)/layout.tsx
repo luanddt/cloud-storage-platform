@@ -1,5 +1,5 @@
-import Image from "next/image";
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Auth - Storage",
@@ -21,9 +21,9 @@ const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
                 className="h-20.5"
               />
 
-              <h1 className="h1">
+              <p className="logo-max">
                 Storage
-              </h1>
+              </p>
             </div>
           </div>
 
@@ -48,8 +48,8 @@ const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         </div>
       </section>
 
-      <section className="p-10 max-lg:px-4 flex-1 flex-center max-lg:justify-start flex-col gap-12">
-        <div className="lg:hidden flex items-center gap-4.5">
+      <section className="p-10 max-lg:px-4 flex-1 flex-center max-lg:justify-start flex-col gap-16">
+        <div className="lg:hidden flex items-center gap-3">
           <Image
             src="/assets/icons/logo.svg"
             alt="Storage"
@@ -58,9 +58,9 @@ const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
             className="h-13"
           />
 
-          <h1 className="h1 text-primary">
+          <p className="logo-min text-primary">
             Storage
-          </h1>
+          </p>
         </div>
 
         {children}

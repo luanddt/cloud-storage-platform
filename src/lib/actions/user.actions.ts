@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { ID, Query } from "node-appwrite";
-import { createAdminClient } from "@/lib/appwrite";
+import { createAdminClient, createSessionClient } from "@/lib/appwrite";
 import { appwriteConfig } from "@/lib/appwrite/config";
 import { parseStringify } from "@/lib/utils";
 import { avatar } from "@/constants";
@@ -104,5 +104,25 @@ export const verifyEmailOTP = async ({
     return parseStringify({ sessionId: session.$id });
   } catch (error) {
     handleError("Failed to verify email OTP", error);
+  };
+};
+
+export const getCurrentUser = async () => {
+  try {
+    const { account, databases } = await createSessionClient();
+
+    const result = await account.get();
+
+    const user = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.userTableId,
+      [Query.equal("accountId", result.$id)]
+    );
+
+    if (user.total <= 0) return null;
+
+    return parseStringify(user.documents[0]);
+  } catch (error) {
+    console.log(error);
   };
 };

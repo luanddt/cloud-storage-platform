@@ -134,12 +134,24 @@
   @apply flex justify-between items-center;
 }
 
+@utility logo-min {
+  @apply font-medium text-[24px] leading-9;
+}
+
+@utility logo-max {
+  @apply font-medium text-[36px] leading-14;
+}
+
 @utility h1 {
   @apply font-bold lg:text-[46px] text-[34px] lg:leading-14 leading-10.5;
 }
 
 @utility h2 {
   @apply font-bold text-[24px] leading-9;
+}
+
+@utility h5 {
+  @apply font-semibold text-[16px] leading-6;
 }
 
 @utility body-1 {
