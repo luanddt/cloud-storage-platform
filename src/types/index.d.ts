@@ -1,5 +1,7 @@
 type FormMode = "login" | "create-account";
 
+type FileType = "document" | "image" | "video" | "audio" | "other";
+
 type HandleErrorOptions = {
   code?: string;
   showDetails?: boolean;
@@ -29,4 +31,13 @@ interface MobileNavigationProps {
   fullName: string;
   email: string;
   avatar: string;
+};
+
+interface ThumbnailProps {
+  name: string;
+  type: string;
+  extension: string;
+  url?: string;
+  className?: string;
+  imageClassName?: string;
 };

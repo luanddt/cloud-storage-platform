@@ -20,6 +20,8 @@
   --destructive: #FF7474;
   --shadow-1: 0 10px 30px 0 rgba(66, 71, 97, 0.1);
   --shadow-2: 0 8px 30px 0 rgba(65, 89, 214, 0.3);
+  --shadow-3: 0 0 30px 0 rgba(89, 104, 178, 0.06),
+    0 30px 40px 0 rgba(89, 104, 178, 0.06);
   --radius: 0.25rem;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -91,6 +93,7 @@
   --color-destructive: var(--destructive);
   --shadow-1: var(--shadow-1);
   --shadow-2: var(--shadow-2);
+  --shadow-3: var(--shadow-3);
   --radius-8: calc(var(--radius) * 2);
   --radius-12: calc(var(--radius) * 3);
   --radius-20: calc(var(--radius) * 5);
@@ -148,6 +151,10 @@
 
 @utility h2 {
   @apply font-bold text-[24px] leading-9;
+}
+
+@utility h3 {
+  @apply font-semibold text-[20px] leading-6.5;
 }
 
 @utility h5 {

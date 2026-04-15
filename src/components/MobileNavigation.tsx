@@ -56,7 +56,7 @@ const MobileNavigation = ({ fullName, email, avatar }: MobileNavigationProps) =>
             alt="Close"
             width={24}
             height={24}
-            className="absolute top-0 right-0 opacity-70 hover:opacity-100 cursor-pointer"
+            className="absolute top-1 right-1 opacity-70 hover:opacity-100 cursor-pointer"
             onClick={() => setIsOpen(false)}
           />
 
@@ -114,9 +114,9 @@ const MobileNavigation = ({ fullName, email, avatar }: MobileNavigationProps) =>
           <Separator />
 
           <Button
-            type="submit"
+            type="button"
             className="bg-primary/10 hover:bg-primary/20 py-3.5"
-            onClick={async () => await logout()}
+            onClick={logout}
           >
             <Image
               src="/assets/icons/logout.svg"
