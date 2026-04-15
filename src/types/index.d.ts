@@ -54,5 +54,5 @@ interface UploadFileProps {
 interface FileUploaderProps {
   accountId: string;
   ownerId: string;
-  onClose: () => void;
+  onClose?: () => void;
 };
