@@ -4,13 +4,22 @@ import { Button } from "@/components/ui/button";
 import Search from "@/components/Search";
 import FileUploader from "@/components/FileUploader";
 
-const Header = () => {
+const Header = ({
+  accountId,
+  userId
+}: {
+  accountId: string;
+  userId: string;
+}) => {
   return (
     <div className="py-7 sm:mr-7 sm:flex-between hidden">
       <Search />
 
       <div className="flex items-center gap-4">
-        <FileUploader />
+        <FileUploader
+          accountId={accountId}
+          ownerId={userId}
+        />
 
         <form
           action={async () => {

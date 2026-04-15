@@ -20,7 +20,7 @@ import FileUploader from "@/components/FileUploader";
 import { Button } from "@/components/ui/button";
 import Search from "@/components/Search";
 
-const MobileNavigation = ({ fullName, email, avatar }: MobileNavigationProps) => {
+const MobileNavigation = ({ fullName, email, avatar, accountId, $id }: MobileNavigationProps) => {
   const pathname = usePathname();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -109,7 +109,11 @@ const MobileNavigation = ({ fullName, email, avatar }: MobileNavigationProps) =>
 
           <Separator />
 
-          <FileUploader />
+          <FileUploader
+            accountId={accountId}
+            ownerId={$id}
+            onClose={() => setIsOpen(false)}
+          />
 
           <Separator />
 

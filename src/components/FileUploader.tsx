@@ -6,13 +6,37 @@ import { useDropzone } from "react-dropzone";
 import { convertFileToUrl, getFileType } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import Thumbnail from "@/components/Thumbnail";
+import { MAX_FILE_SIZE } from "@/constants";
+import { toast } from "sonner";
+import { uploadFile } from "@/lib/actions/file.actions";
+import { usePathname } from "next/navigation";
 
-const FileUploader = () => {
+const FileUploader = ({ accountId, ownerId, onClose }: FileUploaderProps) => {
+  const path = usePathname();
+
   const [files, setFiles] = useState<File[]>([]);
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     setFiles(acceptedFiles);
-  }, []);
+
+    const uploadPromises = acceptedFiles.map(async (file) => {
+      if (file.size > MAX_FILE_SIZE) {
+        setFiles((prevFiles) => prevFiles.filter((f) => f.name !== file.name));
+
+        return toast.error(`File "${file.name}" is too large. Max size is 50MB.`);
+      };
+
+      return uploadFile({ file, ownerId, accountId, path }).then((uploadedFile) => {
+        if (uploadedFile) {
+          setFiles((prevFiles) => prevFiles.filter((f) => f.name !== file.name));
+        };
+      });
+    });
+
+    await Promise.all(uploadPromises);
+
+    onClose?.();
+  }, [ownerId, accountId, path, onClose]);
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
@@ -74,7 +98,7 @@ const FileUploader = () => {
 
                     <div className="sm:w-70 w-40 flex flex-col gap-1">
                       <p className="subtitle-2 line-clamp-1">
-                        {file.name}{file.name}{file.name}
+                        {file.name}
                       </p>
 
                       <Image
@@ -84,6 +108,7 @@ const FileUploader = () => {
                         height={4}
                         className="h-1"
                         priority
+                        unoptimized
                       />
                     </div>
                   </div>

@@ -31,6 +31,8 @@ interface MobileNavigationProps {
   fullName: string;
   email: string;
   avatar: string;
+  accountId: string;
+  $id: string;
 };
 
 interface ThumbnailProps {
@@ -40,4 +42,17 @@ interface ThumbnailProps {
   url?: string;
   className?: string;
   imageClassName?: string;
+};
+
+interface UploadFileProps {
+  file: File;
+  ownerId: string;
+  accountId: string;
+  path: string;
+};
+
+interface FileUploaderProps {
+  accountId: string;
+  ownerId: string;
+  onClose: () => void;
 };
