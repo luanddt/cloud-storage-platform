@@ -56,3 +56,7 @@ interface FileUploaderProps {
   ownerId: string;
   onClose?: () => void;
 };
+
+interface HomeProps {
+  params?: Promise<SegmentParams>;
+};
