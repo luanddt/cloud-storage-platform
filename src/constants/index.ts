@@ -29,3 +29,31 @@ export const navItems = [
 ];
 
 export const MAX_FILE_SIZE = 50 * 1024 * 1024;
+
+export const actionsDropdownItems = [
+  {
+    title: "Rename",
+    icon: "/assets/icons/rename.svg",
+    value: "rename"
+  },
+  {
+    title: "Details",
+    icon: "/assets/icons/details.svg",
+    value: "details"
+  },
+  {
+    title: "Share",
+    icon: "/assets/icons/share.svg",
+    value: "share"
+  },
+  {
+    title: "Download",
+    icon: "/assets/icons/download.svg",
+    value: "download"
+  },
+  {
+    title: "Delete",
+    icon: "/assets/icons/delete.svg",
+    value: "delete"
+  }
+];

@@ -98,6 +98,7 @@
   --radius-12: calc(var(--radius) * 3);
   --radius-18: calc(var(--radius) * 4.5);
   --radius-20: calc(var(--radius) * 5);
+  --radius-26: calc(var(--radius) * 6.5);
   --radius-30: calc(var(--radius) * 7.5);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
