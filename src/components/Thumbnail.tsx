@@ -6,6 +6,7 @@ const Thumbnail = ({
   type,
   extension,
   url = "",
+  size,
   className,
   imageClassName
 }: ThumbnailProps) => {
@@ -16,8 +17,8 @@ const Thumbnail = ({
       <Image
         src={isImage ? url : getFileIcon(extension, type)}
         alt={name}
-        width={32}
-        height={32}
+        width={size}
+        height={size}
         className={cn(
           isImage
             ? "size-full object-cover rounded-full"

@@ -40,6 +40,7 @@ interface ThumbnailProps {
   type: string;
   extension: string;
   url?: string;
+  size: number;
   className?: string;
   imageClassName?: string;
 };
@@ -59,4 +60,9 @@ interface FileUploaderProps {
 
 interface HomeProps {
   params?: Promise<SegmentParams>;
+};
+
+interface FormattedDateTimeProps {
+  date: string;
+  className?: string;
 };

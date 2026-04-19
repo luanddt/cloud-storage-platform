@@ -92,6 +92,7 @@ const FileUploader = ({ accountId, ownerId, onClose }: FileUploaderProps) => {
                       type={type}
                       extension={extension}
                       url={convertFileToUrl(file)}
+                      size={60}
                       className="size-15"
                       imageClassName="size-8"
                     />

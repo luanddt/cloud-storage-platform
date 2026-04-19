@@ -38,7 +38,13 @@ const Home = async ({ params }: HomeProps) => {
 
       {files.total > 0 ? (
         <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
-          {files.documents.map((file: Models.Document) => (
+          {files.documents.map((file: Models.Document & {
+            name: string;
+            url: string;
+            type: string;
+            extension: string;
+            size: number;
+          }) => (
             <FileCard
               key={file.$id}
               file={file}
