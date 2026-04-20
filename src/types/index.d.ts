@@ -72,3 +72,10 @@ interface ActionProps {
   icon: string;
   value: string;
 };
+
+interface RenameFileProps {
+  fileId: string;
+  name: string;
+  extension: string;
+  path: string;
+};
