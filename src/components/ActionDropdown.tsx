@@ -25,12 +25,16 @@ import { constructDownloadUrl } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { renameFile } from "@/lib/actions/file.actions";
 import { usePathname } from "next/navigation";
+import FileDetails from "./ActionsModalContent";
 
 const ActionDropdown = ({ file }: {
   file: Models.Document & {
     name: string;
-    bucketFileId: string;
+    type: string;
     extension: string;
+    url: string;
+    size: number;
+    bucketFileId: string;
   };
 }) => {
   const path = usePathname();
@@ -94,6 +98,10 @@ const ActionDropdown = ({ file }: {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
+        )}
+
+        {value === "details" && (
+          <FileDetails file={file} />
         )}
 
         {["rename", "share", "delete"].includes(value) && (
