@@ -24,7 +24,7 @@ const HomeLayout = async ({ children }: Readonly<{ children: React.ReactNode }>)
 
         <MobileNavigation {...currentUser} />
 
-        <main className="bg-[#F2F4F8] sm:px-9 px-5 sm:py-10 py-7 sm:mr-7 sm:mb-7 sm:rounded-30 flex-1 overflow-auto">
+        <main className="bg-[#F2F4F8] dark:bg-[#1E293B] sm:px-9 px-5 sm:py-10 py-7 sm:mr-7 sm:mb-7 sm:rounded-30 flex-1 overflow-auto">
           {children}
         </main>
       </div>

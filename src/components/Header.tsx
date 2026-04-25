@@ -3,6 +3,7 @@ import { logout } from "@/lib/actions/user.actions";
 import { Button } from "@/components/ui/button";
 import Search from "@/components/Search";
 import FileUploader from "@/components/FileUploader";
+import ModeToggle from "@/components/mode-toggle";
 
 const Header = ({
   accountId,
@@ -20,6 +21,8 @@ const Header = ({
           accountId={accountId}
           ownerId={userId}
         />
+
+        <ModeToggle />
 
         <form
           action={async () => {
