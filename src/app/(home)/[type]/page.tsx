@@ -44,6 +44,7 @@ const Home = async ({ params }: HomeProps) => {
             type: string;
             extension: string;
             size: number;
+            users: string[];
             bucketFileId: string;
           }) => (
             <FileCard

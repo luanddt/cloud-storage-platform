@@ -79,3 +79,9 @@ interface RenameFileProps {
   extension: string;
   path: string;
 };
+
+interface ShareFileProps {
+  fileId: string;
+  emails: string[];
+  path: string;
+};
