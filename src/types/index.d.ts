@@ -85,3 +85,9 @@ interface ShareFileProps {
   emails: string[];
   path: string;
 };
+
+interface DeleteFileProps {
+  fileId: string;
+  bucketFileId: string;
+  path: string;
+};

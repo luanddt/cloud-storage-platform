@@ -23,7 +23,7 @@ import { actionsDropdownItems } from "@/constants";
 import Link from "next/link";
 import { constructDownloadUrl } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
-import { renameFile, shareFile } from "@/lib/actions/file.actions";
+import { deleteFile, renameFile, shareFile } from "@/lib/actions/file.actions";
 import { usePathname } from "next/navigation";
 import FileDetails, { FileShare } from "./ActionsModalContent";
 
@@ -64,7 +64,8 @@ const ActionDropdown = ({ file }: {
 
     const actions = {
       rename: () => renameFile({ fileId: file.$id, name, extension: file.extension, path }),
-      share: () => shareFile({ fileId: file.$id, emails, path })
+      share: () => shareFile({ fileId: file.$id, emails, path }),
+      delete: () => deleteFile({ fileId: file.$id, bucketFileId: file.bucketFileId, path })
     };
 
     success = await actions[action.value as keyof typeof actions]();
@@ -128,6 +129,16 @@ const ActionDropdown = ({ file }: {
             onInputChange={setEmails}
             onRemove={handleRemoveUser}
           />
+        )}
+
+        {value === "delete" && (
+          <p className="body-2 text-center">
+            Are you sure you want to delete{" "}
+            <span className="subtitle-2 text-primary">
+              {file.name}
+            </span>
+            ?
+          </p>
         )}
 
         {["rename", "share", "delete"].includes(value) && (
