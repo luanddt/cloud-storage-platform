@@ -60,6 +60,7 @@ interface FileUploaderProps {
 
 interface HomeProps {
   params?: Promise<SegmentParams>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 interface FormattedDateTimeProps {
@@ -94,4 +95,5 @@ interface DeleteFileProps {
 
 interface GetFilesProps {
   types: FileType[];
+  searchText?: string;
 };

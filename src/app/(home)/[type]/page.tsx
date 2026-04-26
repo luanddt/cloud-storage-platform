@@ -4,11 +4,13 @@ import { getFiles } from "@/lib/actions/file.actions";
 import { getFileTypesParams } from "@/lib/utils";
 import { Models } from "node-appwrite";
 
-const Home = async ({ params }: HomeProps) => {
+const Home = async ({ params, searchParams }: HomeProps) => {
   const type = ((await params)?.type as string) || "";
+  const searchText = ((await searchParams)?.query as string) || "";
+
   const types = getFileTypesParams(type) as FileType[];
 
-  const files = await getFiles({ types });
+  const files = await getFiles({ types, searchText });
 
   return (
     <div className="flex flex-col gap-9">

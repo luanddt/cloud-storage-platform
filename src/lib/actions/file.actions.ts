@@ -77,7 +77,8 @@ export const uploadFile = async ({ file, ownerId, accountId, path }: UploadFileP
 
 const createQueries = (
   currentUser: Models.Document & { email: string },
-  types: string[]
+  types: string[],
+  searchText: string
 ) => {
   const queries = [
     Query.or([
@@ -88,11 +89,14 @@ const createQueries = (
 
   if (types.length > 0) queries.push(Query.equal("type", types));
 
+  if (searchText) queries.push(Query.contains("name", searchText));
+
   return queries;
 };
 
 export const getFiles = async ({
-  types = []
+  types = [],
+  searchText = ""
 }: GetFilesProps) => {
   const { databases } = await createAdminClient();
 
@@ -101,7 +105,7 @@ export const getFiles = async ({
 
     if (!currentUser) throw new Error("User not found");
 
-    const queries = createQueries(currentUser, types);
+    const queries = createQueries(currentUser, types, searchText);
 
     const files = await databases.listDocuments(
       appwriteConfig.databaseId,

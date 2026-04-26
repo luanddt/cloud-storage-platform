@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils";
 import FileUploader from "@/components/FileUploader";
 import { Button } from "@/components/ui/button";
 import Search from "@/components/Search";
+import ModeToggle from "./ModeToggle";
 
 const MobileNavigation = ({ fullName, email, avatar, accountId, $id }: MobileNavigationProps) => {
   const pathname = usePathname();
@@ -114,6 +115,10 @@ const MobileNavigation = ({ fullName, email, avatar, accountId, $id }: MobileNav
             ownerId={$id}
             onClose={() => setIsOpen(false)}
           />
+
+          <Separator />
+
+          <ModeToggle />
 
           <Separator />
 
