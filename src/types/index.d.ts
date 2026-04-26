@@ -91,3 +91,7 @@ interface DeleteFileProps {
   bucketFileId: string;
   path: string;
 };
+
+interface GetFilesProps {
+  types: FileType[];
+};
