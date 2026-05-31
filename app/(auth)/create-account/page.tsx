@@ -1,6 +1,8 @@
+import AuthForm from "@/components/auth-form";
+
 const CreateAccount = () => {
   return (
-    <div>CreateAccount</div>
+    <AuthForm mode="create-account" />
   );
 };
 
