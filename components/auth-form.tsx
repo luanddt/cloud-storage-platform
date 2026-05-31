@@ -5,6 +5,7 @@ import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
+import { createAccount, loginUser } from "@/lib/actions/user.actions";
 import {
   Field,
   FieldError,
@@ -32,6 +33,7 @@ const authFormSchema = (authMode: AuthMode) => {
 const AuthForm = ({ mode }: AuthFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [accountId, setAccountId] = useState(null);
 
   const formSchema = authFormSchema(mode);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -42,8 +44,22 @@ const AuthForm = ({ mode }: AuthFormProps) => {
     }
   });
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    setIsLoading(true);
+    setErrorMessage("");
+
+    try {
+      const user = mode === "create-account" ? await createAccount({
+        fullName: data.fullName || "",
+        email: data.email
+      }) : await loginUser({ email: data.email });
+
+      setAccountId(user.accountId);
+    } catch {
+      setErrorMessage(mode === "create-account" ? "Failed to create account. Please try again." : "Failed to login. Please try again.")
+    } finally {
+      setIsLoading(false);
+    };
   };
 
   return (
@@ -69,6 +85,7 @@ const AuthForm = ({ mode }: AuthFormProps) => {
                   aria-invalid={fieldState.invalid}
                   placeholder="Enter your full name"
                   autoComplete="name"
+                  required
                 />
               </div>
 
@@ -95,6 +112,7 @@ const AuthForm = ({ mode }: AuthFormProps) => {
                 aria-invalid={fieldState.invalid}
                 placeholder="Enter your email"
                 autoComplete="email"
+                required
               />
             </div>
 
