@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import * as z from "zod";
+import { z } from "zod";
 import { createAccount, loginUser } from "@/lib/actions/user.actions";
 import {
   Field,
@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
+import OTPModal from "@/components/otp-modal";
 
 const authFormSchema = (authMode: AuthMode) => {
   return (
@@ -63,28 +64,56 @@ const AuthForm = ({ mode }: AuthFormProps) => {
   };
 
   return (
-    <form
-      onSubmit={form.handleSubmit(onSubmit)}
-      className="w-full max-w-145 flex flex-col lg:gap-8 gap-6"
-    >
-      <FieldLegend>{mode === "login" ? "Login" : "Create Account"}</FieldLegend>
+    <>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="w-full max-w-145 flex flex-col lg:gap-8 gap-6"
+      >
+        <FieldLegend>{mode === "login" ? "Login" : "Create Account"}</FieldLegend>
 
-      {mode === "create-account" && (
+        {mode === "create-account" && (
+          <Controller
+            name="fullName"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <div className="p-4 shadow-1 rounded-12 flex flex-col gap-1.5">
+                  <FieldLabel htmlFor={field.name}>Full name</FieldLabel>
+
+                  <Input
+                    {...field}
+                    id={field.name}
+                    type="text"
+                    aria-invalid={fieldState.invalid}
+                    placeholder="Enter your full name"
+                    autoComplete="name"
+                    required
+                  />
+                </div>
+
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+        )}
+
         <Controller
-          name="fullName"
+          name="email"
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <div className="p-4 shadow-1 rounded-12 flex flex-col gap-1.5">
-                <FieldLabel htmlFor={field.name}>Full name</FieldLabel>
+                <FieldLabel htmlFor={field.name}>Email</FieldLabel>
 
                 <Input
                   {...field}
                   id={field.name}
-                  type="text"
+                  type="email"
                   aria-invalid={fieldState.invalid}
-                  placeholder="Enter your full name"
-                  autoComplete="name"
+                  placeholder="Enter your email"
+                  autoComplete="email"
                   required
                 />
               </div>
@@ -95,59 +124,40 @@ const AuthForm = ({ mode }: AuthFormProps) => {
             </Field>
           )}
         />
-      )}
 
-      <Controller
-        name="email"
-        control={form.control}
-        render={({ field, fieldState }) => (
-          <Field data-invalid={fieldState.invalid}>
-            <div className="p-4 shadow-1 rounded-12 flex flex-col gap-1.5">
-              <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+        <Button type="submit" disabled={isLoading}>
+          {isLoading && (
+            <Spinner />
+          )}
 
-              <Input
-                {...field}
-                id={field.name}
-                type="email"
-                aria-invalid={fieldState.invalid}
-                placeholder="Enter your email"
-                autoComplete="email"
-                required
-              />
-            </div>
+          <p>{mode === "login" ? "Login" : "Create Account"}</p>
+        </Button>
 
-            {fieldState.invalid && (
-              <FieldError errors={[fieldState.error]} />
-            )}
-          </Field>
-        )}
-      />
-
-      <Button type="submit" disabled={isLoading}>
-        {isLoading && (
-          <Spinner />
+        {errorMessage && (
+          <p className="caption text-destructive text-center">
+            *{errorMessage}
+          </p>
         )}
 
-        <p>{mode === "login" ? "Login" : "Create Account"}</p>
-      </Button>
+        <div className="body-2 flex-center gap-1">
+          <p>{mode === "login" ? "Don't have an account?" : "Already have an account?"}</p>
 
-      {errorMessage && (
-        <p className="caption text-destructive text-center">
-          *{errorMessage}
-        </p>
+          <Link
+            href={mode === "login" ? "/create-account" : "/login"}
+            className="text-primary hover:text-primary/80 hover:underline"
+          >
+            {mode === "login" ? "Create Account" : "Login"}
+          </Link>
+        </div>
+      </form>
+
+      {accountId && (
+        <OTPModal
+          accountId={accountId}
+          email={form.getValues("email")}
+        />
       )}
-
-      <div className="body-2 flex-center gap-1">
-        <p>{mode === "login" ? "Don't have an account?" : "Already have an account?"}</p>
-
-        <Link
-          href={mode === "login" ? "/create-account" : "/login"}
-          className="text-primary hover:text-primary/80 hover:underline"
-        >
-          {mode === "login" ? "Create Account" : "Login"}
-        </Link>
-      </div>
-    </form>
+    </>
   );
 };
 

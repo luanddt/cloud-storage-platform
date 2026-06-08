@@ -1,5 +1,6 @@
 "use server";
 
+import { cookies } from "next/headers";
 import { ID, Query } from "node-appwrite";
 import { avatarPlaceholderUrl } from "@/constants";
 import { parseStringify } from "@/lib/utils";
@@ -81,5 +82,30 @@ export const loginUser = async ({ email }: { email: string }) => {
     return parseStringify({ accountId: null, error: "User not found" });
   } catch (error) {
     handleError("Failed to login user", error);
+  };
+};
+
+export const verifyEmailOTP = async ({
+  accountId,
+  password
+}: {
+  accountId: string;
+  password: string;
+}) => {
+  try {
+    const { account } = await createAdminClient();
+
+    const session = await account.createSession(accountId, password);
+
+    (await cookies()).set("appwrite-session", session.secret, {
+      path: "/",
+      httpOnly: true,
+      sameSite: "strict",
+      secure: true
+    });
+
+    return parseStringify({ sessionId: session.$id });
+  } catch (error) {
+    handleError("Failed to verify email OTP", error);
   };
 };

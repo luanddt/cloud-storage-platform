@@ -30,7 +30,7 @@ const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
             </h1>
 
             <p className="body-1">
-              Awesome, we've created the perfect place for you to store all your documents.
+              Awesome, we&#39;ve created the perfect place for you to store all your documents.
             </p>
           </div>
 
