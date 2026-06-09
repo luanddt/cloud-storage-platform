@@ -4,22 +4,29 @@
 
 @custom-variant dark (&:is(.dark *));
 
+::-webkit-scrollbar {
+  @apply hidden;
+}
+
 :root {
-  --background: #FFFFFF;
-  --foreground: #333F4E;
+  --background: #ffffff;
+  --foreground: #333f4e;
 
-  --primary: #FA7275;
-  --primary-foreground: #FFFFFF;
+  --primary: #fa7275;
+  --primary-foreground: #ffffff;
 
-  --muted: #FFFFFF;
-  --muted-foreground: #A3B2C7;
+  --muted: #ffffff;
+  --muted-foreground: #a3b2c7;
 
-  --popover: #FFFFFF;
-  --popover-foreground: #333F4E;
+  --popover: #ffffff;
+  --popover-foreground: #333f4e;
 
-  --ring: #FA7275;
-  --input: #A3B2C7;
-  --destructive: #B80000;
+  --main: #f2f4f8;
+  --main-foreground: #333f4e;
+
+  --ring: #fa7275;
+  --input: #a3b2c7;
+  --destructive: #b80000;
 
   --shadow-1: 0 10px 30px 0 rgba(66, 71, 97, 0.1);
   --shadow-2: 0 8px 30px 0 rgba(65, 89, 214, 0.3);
@@ -50,17 +57,20 @@
 
 .dark {
   --background: #000000;
-  --foreground: #FFFFFF;
+  --foreground: #ffffff;
 
   --muted: #000000;
-  --muted-foreground: #A3B2C7;
+  --muted-foreground: #a3b2c7;
 
   --popover: #000000;
-  --popover-foreground: #FFFFFF;
+  --popover-foreground: #ffffff;
 
-  --ring: #FA7275;
-  --input: #A3B2C7;
-  --destructive: #B80000;
+  --main: #101010;
+  --main-foreground: #ffffff;
+
+  --ring: #fa7275;
+  --input: #a3b2c7;
+  --destructive: #b80000;
 
   --shadow-1: 0 0 0 1px rgba(255, 255, 255, 0.05),
     0 10px 30px rgba(255, 255, 255, 0.06);
@@ -99,12 +109,16 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
 
+  --color-main: var(--main);
+  --color-main-foreground: var(--main-foreground);
+
   --shadow-1: var(--shadow-1);
   --shadow-2: var(--shadow-2);
 
   --radius-8: calc(var(--radius) * 2);
   --radius-12: calc(var(--radius) * 3);
   --radius-20: calc(var(--radius) * 5);
+  --radius-30: calc(var(--radius) * 7.5);
 
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
