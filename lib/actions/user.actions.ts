@@ -1,6 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { ID, Query } from "node-appwrite";
 import { avatarPlaceholderUrl } from "@/constants";
 import { parseStringify } from "@/lib/utils";
@@ -127,5 +128,19 @@ export const getCurrentUser = async () => {
     return parseStringify(user.documents[0]);
   } catch (error) {
     console.log("Failed to get current user", error);
+  };
+};
+
+export const logoutUser = async () => {
+  const { account } = await createSessionClient();
+
+  try {
+    await account.deleteSession("current");
+
+    (await cookies()).delete("appwrite-session");
+  } catch (error) {
+    handleError("Failed to logout user", error);
+  } finally {
+    redirect("/login");
   };
 };
