@@ -178,12 +178,20 @@
   @apply font-bold text-[24px] leading-9;
 }
 
+@utility h5 {
+  @apply font-semibold text-[16px] leading-6;
+}
+
 @utility body-1 {
   @apply font-normal text-[16px] leading-6;
 }
 
 @utility body-2 {
   @apply font-normal text-[14px] leading-5;
+}
+
+@utility body-3 {
+  @apply font-normal text-[14px] leading-6;
 }
 
 @utility subtitle-2 {
