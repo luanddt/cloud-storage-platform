@@ -5,13 +5,13 @@ import Search from "@/components/search";
 import ModeToggle from "@/components/mode-toggle";
 import FileUploader from "@/components/file-uploader";
 
-const Header = () => {
+const Header = ({ userId, accountId }: HeaderProps) => {
   return (
     <header className="py-7 sm:mr-7 sm:flex-between hidden">
       <Search />
 
       <div className="flex items-center gap-6">
-        <FileUploader />
+        <FileUploader ownerId={userId} accountId={accountId} />
 
         <ModeToggle />
 

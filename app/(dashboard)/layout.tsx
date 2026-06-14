@@ -20,7 +20,7 @@ const DashboardLayout = async ({ children }: Readonly<{ children: React.ReactNod
       <Sidebar {...currentUser} />
 
       <div className="flex-1 flex flex-col">
-        <Header />
+        <Header userId={currentUser.$id} accountId={currentUser.accountId} />
 
         <MobileNavigation {...currentUser} />
 
