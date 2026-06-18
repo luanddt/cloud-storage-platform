@@ -26,7 +26,7 @@ interface MobileNavigationProps {
 };
 
 interface HomeProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ type: string }>;
 };
 
 interface ThumbnailProps {
@@ -48,4 +48,9 @@ interface FileUploaderProps {
 interface HeaderProps {
   userId: string;
   accountId: string;
+};
+
+interface FormattedDateTimeProps {
+  date: string;
+  className?: string;
 };

@@ -4,7 +4,7 @@ import Sort from "@/components/sort";
 import FileCard from "@/components/file-card";
 
 const Home = async ({ params }: HomeProps) => {
-  const { slug } = await params;
+  const { type } = await params;
 
   const files = await getFiles();
 
@@ -12,7 +12,7 @@ const Home = async ({ params }: HomeProps) => {
     <div className="flex flex-col gap-9">
       <div className="flex flex-col gap-2.5">
         <h1 className="h1 capitalize">
-          {slug}
+          {type}
         </h1>
 
         <div className="flex-between">
@@ -38,7 +38,13 @@ const Home = async ({ params }: HomeProps) => {
 
       {files.total > 0 ? (
         <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
-          {files.documents.map((file: Models.Document) => (
+          {files.documents.map((file: Models.Document & {
+            name: string;
+            url: string;
+            type: string;
+            extension: string;
+            size: number;
+          }) => (
             <FileCard key={file.$id} file={file} />
           ))}
         </div>
