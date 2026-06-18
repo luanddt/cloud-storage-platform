@@ -204,6 +204,10 @@
   @apply font-normal text-[14px] leading-6;
 }
 
+@utility body-4 {
+  @apply font-medium text-[14px] leading-5;
+}
+
 @utility subtitle-2 {
   @apply font-semibold text-[14px] leading-5;
 }
