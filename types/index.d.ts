@@ -54,3 +54,9 @@ interface FormattedDateTimeProps {
   date: string;
   className?: string;
 };
+
+interface ActionType {
+  label: string;
+  icon: string;
+  value: string;
+};

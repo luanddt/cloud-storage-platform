@@ -11,6 +11,7 @@ const FileCard = ({ file }: {
     type: string;
     extension: string;
     size: number;
+    bucketFileId: string;
   };
 }) => {
   return (
@@ -27,7 +28,7 @@ const FileCard = ({ file }: {
         />
 
         <div className="flex flex-col justify-between items-end">
-          <ActionDropdown />
+          <ActionDropdown file={file} />
 
           <p className="body-1">
             {convertFileSize(file.size)}
