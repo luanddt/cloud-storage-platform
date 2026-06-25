@@ -26,12 +26,16 @@ import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { renameFile } from "@/lib/actions/file.actions";
 import { Input } from "./ui/input";
+import FileDetails from "./actions-modal-content";
 
 const ActionDropdown = ({ file }: {
   file: Models.Document & {
     name: string;
     bucketFileId: string;
     extension: string;
+    url: string;
+    type: string;
+    size: number;
   };
 }) => {
   const path = usePathname();
@@ -84,6 +88,10 @@ const ActionDropdown = ({ file }: {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
+        )}
+
+        {value === "details" && (
+          <FileDetails file={file} />
         )}
 
         {["rename", "share", "delete"].includes(value) && (
