@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Models } from "node-appwrite";
@@ -22,25 +23,48 @@ import {
   DialogTitle
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
+import { renameFile } from "@/lib/actions/file.actions";
+import { Input } from "./ui/input";
 
 const ActionDropdown = ({ file }: {
   file: Models.Document & {
     name: string;
     bucketFileId: string;
+    extension: string;
   };
 }) => {
+  const path = usePathname();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [action, setAction] = useState<ActionType | null>(null);
+  const [name, setName] = useState(file.name);
+  const [isLoading, setIsLoading] = useState(false);
 
   const closeAllModals = () => {
     setIsModalOpen(false);
     setIsDropdownOpen(false);
     setAction(null);
+    setName(file.name);
   };
 
-  const handleAction = () => {
+  const handleAction = async () => {
+    if (!action) return;
 
+    setIsLoading(true);
+
+    let success = false;
+
+    const actions = {
+      rename: () => renameFile({ fileId: file.$id, name, extension: file.extension, path })
+    };
+
+    success = await actions[action.value as keyof typeof actions]();
+
+    if (success) closeAllModals();
+
+    setIsLoading(false);
   };
 
   const renderDialogContent = () => {
@@ -54,14 +78,26 @@ const ActionDropdown = ({ file }: {
           <DialogTitle>{label}</DialogTitle>
         </DialogHeader>
 
+        {value === "rename" && (
+          <Input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        )}
+
         {["rename", "share", "delete"].includes(value) && (
           <DialogFooter>
             <Button type="button" className="flex-1" variant="outline" onClick={closeAllModals}>
               Cancel
             </Button>
 
-            <Button type="button" className="flex-1" onClick={handleAction}>
-              {label}
+            <Button type="button" className="flex-1" onClick={handleAction} disabled={isLoading}>
+              {isLoading && (
+                <Spinner />
+              )}
+
+              <p>{label}</p>
             </Button>
           </DialogFooter>
         )}
