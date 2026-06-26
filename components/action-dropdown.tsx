@@ -8,6 +8,7 @@ import { Models } from "node-appwrite";
 import { EllipsisVertical } from "lucide-react";
 import { actionsDropdownItems } from "@/constants";
 import { constructDownloadUrl } from "@/lib/utils";
+import { renameFile, shareFile } from "@/lib/actions/file.actions";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,11 +23,10 @@ import {
   DialogHeader,
   DialogTitle
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
-import { renameFile } from "@/lib/actions/file.actions";
-import { Input } from "./ui/input";
-import FileDetails from "./actions-modal-content";
+import { FileDetails, FileShare } from "@/components/actions-modal-content";
 
 const ActionDropdown = ({ file }: {
   file: Models.Document & {
@@ -36,6 +36,7 @@ const ActionDropdown = ({ file }: {
     url: string;
     type: string;
     size: number;
+    users: string[];
   };
 }) => {
   const path = usePathname();
@@ -45,12 +46,14 @@ const ActionDropdown = ({ file }: {
   const [action, setAction] = useState<ActionType | null>(null);
   const [name, setName] = useState(file.name);
   const [isLoading, setIsLoading] = useState(false);
+  const [emails, setEmails] = useState<string[]>([]);
 
   const closeAllModals = () => {
     setIsModalOpen(false);
     setIsDropdownOpen(false);
     setAction(null);
     setName(file.name);
+    setEmails([]);
   };
 
   const handleAction = async () => {
@@ -61,7 +64,8 @@ const ActionDropdown = ({ file }: {
     let success = false;
 
     const actions = {
-      rename: () => renameFile({ fileId: file.$id, name, extension: file.extension, path })
+      rename: () => renameFile({ fileId: file.$id, name, extension: file.extension, path }),
+      share: () => shareFile({ fileId: file.$id, emails, path })
     };
 
     success = await actions[action.value as keyof typeof actions]();
@@ -69,6 +73,20 @@ const ActionDropdown = ({ file }: {
     if (success) closeAllModals();
 
     setIsLoading(false);
+  };
+
+  const handleRemoveUser = async (email: string) => {
+    const updatedEmails = emails.filter((e) => e !== email);
+
+    const success = await shareFile({
+      fileId: file.$id,
+      emails: updatedEmails,
+      path
+    });
+
+    if (success) setEmails(updatedEmails);
+
+    closeAllModals();
   };
 
   const renderDialogContent = () => {
@@ -92,6 +110,10 @@ const ActionDropdown = ({ file }: {
 
         {value === "details" && (
           <FileDetails file={file} />
+        )}
+
+        {value === "share" && (
+          <FileShare file={file} onChange={setEmails} onRemove={handleRemoveUser} />
         )}
 
         {["rename", "share", "delete"].includes(value) && (

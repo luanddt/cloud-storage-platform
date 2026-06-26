@@ -1,7 +1,9 @@
 import { Models } from "node-appwrite";
-import Thumbnail from "./thumbnail";
+import { CircleX } from "lucide-react";
 import { convertFileSize, formatDateTime } from "@/lib/utils";
-import FormattedDateTime from "./formatted-date-time";
+import { Input } from "@/components/ui/input";
+import Thumbnail from "@/components/thumbnail";
+import FormattedDateTime from "@/components/formatted-date-time";
 
 const ImageThumbnail = ({ file }: {
   file: Models.Document & {
@@ -9,7 +11,7 @@ const ImageThumbnail = ({ file }: {
     url: string;
     type: string;
     extension: string;
-  }
+  };
 }) => {
   return (
     <div className="p-3 border border-input rounded-12 flex items-center gap-4">
@@ -46,7 +48,7 @@ const DetailRow = ({ label, value }: { label: string; value: string }) => {
   );
 };
 
-const FileDetails = ({ file }: {
+export const FileDetails = ({ file }: {
   file: Models.Document & {
     name: string;
     url: string;
@@ -68,4 +70,58 @@ const FileDetails = ({ file }: {
   );
 };
 
-export default FileDetails;
+interface FileShareProps {
+  file: Models.Document & {
+    name: string;
+    url: string;
+    type: string;
+    extension: string;
+    users: string[];
+  };
+  onChange: React.Dispatch<React.SetStateAction<string[]>>;
+  onRemove: (email: string) => void;
+};
+
+export const FileShare = ({ file, onChange, onRemove }: FileShareProps) => {
+  return (
+    <div className="flex flex-col gap-8">
+      <ImageThumbnail file={file} />
+
+      <div className="flex flex-col gap-2.5">
+        <p className="subtitle-2">
+          Share file with other users:
+        </p>
+
+        <Input
+          type="email"
+          placeholder="Enter email address"
+          onChange={(e) => onChange(e.target.value.trim().split(","))}
+        />
+      </div>
+
+      <div className="flex flex-col gap-5">
+        <div className="flex-between">
+          <p className="subtitle-2">Share with users</p>
+          <p className="subtitle-2 text-muted-foreground">{file.users.length} users</p>
+        </div>
+
+        {file.users.length > 0 && (
+          <ul className="flex flex-col gap-1">
+            {file.users.map((email: string) => (
+              <li key={email} className="flex-between">
+                <p className="subtitle-2">
+                  {email}
+                </p>
+
+                <CircleX
+                  onClick={() => onRemove(email)}
+                  className="cursor-pointer hover:opacity-70"
+                />
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
+};

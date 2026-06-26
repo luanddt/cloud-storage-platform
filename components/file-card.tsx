@@ -12,6 +12,7 @@ const FileCard = ({ file }: {
     extension: string;
     size: number;
     bucketFileId: string;
+    users: string[];
   };
 }) => {
   return (
