@@ -8,7 +8,7 @@ import { Models } from "node-appwrite";
 import { EllipsisVertical } from "lucide-react";
 import { actionsDropdownItems } from "@/constants";
 import { constructDownloadUrl } from "@/lib/utils";
-import { renameFile, shareFile } from "@/lib/actions/file.actions";
+import { deleteFile, renameFile, shareFile } from "@/lib/actions/file.actions";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -65,7 +65,8 @@ const ActionDropdown = ({ file }: {
 
     const actions = {
       rename: () => renameFile({ fileId: file.$id, name, extension: file.extension, path }),
-      share: () => shareFile({ fileId: file.$id, emails, path })
+      share: () => shareFile({ fileId: file.$id, emails, path }),
+      delete: () => deleteFile({ fileId: file.$id, bucketFileId: file.bucketFileId, path })
     };
 
     success = await actions[action.value as keyof typeof actions]();
@@ -114,6 +115,13 @@ const ActionDropdown = ({ file }: {
 
         {value === "share" && (
           <FileShare file={file} onChange={setEmails} onRemove={handleRemoveUser} />
+        )}
+
+        {value === "delete" && (
+          <p className="body-2 text-center">
+            Are you sure you want to delete{" "}
+            <span className="subtitle-2">{file.name}</span>?
+          </p>
         )}
 
         {["rename", "share", "delete"].includes(value) && (

@@ -57,6 +57,7 @@ const Sidebar = ({ fullName, email, avatar }: SidebarProps) => {
         alt="Files"
         width={380}
         height={314}
+        priority
         className="max-lg:hidden"
       />
 

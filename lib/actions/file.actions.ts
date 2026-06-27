@@ -161,3 +161,33 @@ export const shareFile = async ({
     handleError("Failed to share file", error);
   };
 };
+
+export const deleteFile = async ({
+  fileId,
+  bucketFileId,
+  path
+}: {
+  fileId: string;
+  bucketFileId: string;
+  path: string;
+}) => {
+  const { databases, storage } = await createAdminClient();
+
+  try {
+    const deletedFile = await databases.deleteDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.fileTableId,
+      fileId
+    );
+
+    if (deletedFile) {
+      await storage.deleteFile(appwriteConfig.bucketId, bucketFileId);
+    };
+
+    revalidatePath(path);
+
+    return parseStringify({ status: "success" });
+  } catch (error) {
+    handleError("Failed to delete file", error);
+  };
+};
