@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import Search from "@/components/search";
 import FileUploader from "@/components/file-uploader";
-import ModeToggle from "@/components/mode-toggle";
+import { ModeToggle } from "./mode-toggle";
 
 const MobileNavigation = ({ $id, accountId, fullName, email, avatar }: MobileNavigationProps) => {
   const pathname = usePathname();

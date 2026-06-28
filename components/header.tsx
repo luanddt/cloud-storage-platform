@@ -2,7 +2,7 @@ import Image from "next/image";
 import { logoutUser } from "@/lib/actions/user.actions";
 import { Button } from "@/components/ui/button";
 import Search from "@/components/search";
-import ModeToggle from "@/components/mode-toggle";
+import { ModeToggle } from "@/components/mode-toggle";
 import FileUploader from "@/components/file-uploader";
 
 const Header = ({ userId, accountId }: HeaderProps) => {
