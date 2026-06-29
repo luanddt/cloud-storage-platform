@@ -2,11 +2,14 @@ import { Models } from "node-appwrite";
 import { getFiles } from "@/lib/actions/file.actions";
 import Sort from "@/components/sort";
 import FileCard from "@/components/file-card";
+import { getFileTypesParams } from "@/lib/utils";
 
 const Home = async ({ params }: HomeProps) => {
   const { type } = await params;
 
-  const files = await getFiles();
+  const types = getFileTypesParams(type) as FileType[];
+
+  const files = await getFiles({ types });
 
   return (
     <div className="flex flex-col gap-9">
