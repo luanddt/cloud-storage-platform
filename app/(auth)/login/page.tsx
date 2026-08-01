@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import AuthForm from "@/components/auth/auth-form";
+
 export const metadata: Metadata = {
   title: "Login - Storage",
   description: "Cloud Storage Platform"
@@ -7,7 +9,7 @@ export const metadata: Metadata = {
 
 const Login = () => {
   return (
-    <div>Login</div>
+    <AuthForm mode="login" />
   );
 };
 

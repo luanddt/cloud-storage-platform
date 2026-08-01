@@ -15,7 +15,7 @@ const poppins = Poppins({
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body className={`bg-background ${poppins.className} text-foreground`}>
         {children}
       </body>
