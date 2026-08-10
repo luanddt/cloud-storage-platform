@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -15,7 +14,7 @@ const poppins = Poppins({
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body className={`bg-background ${poppins.className} text-foreground`}>
         {children}
       </body>
