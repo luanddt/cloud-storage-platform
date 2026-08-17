@@ -6,6 +6,7 @@ import { createAdminClient } from "@/lib/appwrite";
 import { appwriteConfig } from "@/lib/appwrite/config";
 import { avatarPlaceholderUrl } from "@/constants";
 import { parseStringify } from "@/lib/utils";
+import { cookies } from "next/headers";
 
 const handleError = (message: string, error: unknown): never => {
   console.error(`[Error] ${message}`, error);
@@ -80,5 +81,24 @@ export const login = async ({ email }: { email: string }) => {
     return parseStringify({ accountId: null, error: "User not found" });
   } catch (error) {
     handleError("Failed to login", error);
+  };
+};
+
+export const verifyEmailOTP = async ({ accountId, password }: { accountId: string; password: string }) => {
+  try {
+    const { account } = await createAdminClient();
+
+    const session = await account.createSession(accountId, password);
+
+    (await cookies()).set("appwrite-session", session.secret, {
+      path: "/",
+      httpOnly: true,
+      sameSite: "strict",
+      secure: true
+    });
+
+    return parseStringify({ sessionId: session.$id });
+  } catch (error) {
+    handleError("Failed to verify email OTP", error);
   };
 };

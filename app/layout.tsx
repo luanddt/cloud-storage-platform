@@ -14,7 +14,7 @@ const poppins = Poppins({
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
-    <html lang="en">
+    <html lang="en" className="scrollbar-gutter-auto!">
       <body className={`bg-background ${poppins.className} text-foreground`}>
         {children}
       </body>

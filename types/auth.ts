@@ -8,3 +8,8 @@ export interface CreateAccountProps {
   fullName: string;
   email: string;
 };
+
+export interface OTPModalProps {
+  accountId: string;
+  email: string;
+};

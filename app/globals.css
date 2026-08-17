@@ -86,6 +86,7 @@
   --color-destructive: var(--destructive);
   --radius-6: calc(var(--radius) * 1.5);
   --radius-12: calc(var(--radius) * 3);
+  --radius-20: calc(var(--radius) * 5);
   --shadow-drop-1: var(--shadow-drop-1);
   --shadow-drop-2: var(--shadow-drop-2);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -115,6 +116,10 @@
   @apply flex justify-center items-center;
 }
 
+@utility flex-between {
+  @apply flex justify-between items-center;
+}
+
 @utility logo-38 {
   @apply font-medium text-[38px] leading-14;
 }
@@ -125,6 +130,10 @@
 
 @utility h1 {
   @apply font-bold lg:text-[46px] text-[34px] lg:leading-14 leading-10.5;
+}
+
+@utility h2 {
+  @apply font-bold text-[24px] leading-9;
 }
 
 @utility body-1 {
@@ -145,4 +154,8 @@
 
 @utility button {
   @apply font-semibold text-[15px] leading-5;
+}
+
+@utility otp {
+  @apply font-medium sm:text-[48px] text-[36px] sm:leading-15 leading-10;
 }
