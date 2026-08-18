@@ -1,21 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import * as z from "zod";
-import { AuthFormProps, AuthMode } from "@/types";
-import { Button } from "@/components/ui/button";
-import {
-  Field,
-  FieldError,
-  FieldLabel
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Spinner } from "@/components/ui/spinner";
 import { createAccount, login } from "@/lib/actions/user.actions";
-import OTPModal from "./otp-modal";
+import { AuthFormProps, AuthMode } from "@/types";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import OTPModal from "@/components/auth/otp-modal";
 
 const authFormSchema = (auth: AuthMode) => {
   return (

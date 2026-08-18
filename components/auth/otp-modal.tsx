@@ -1,3 +1,8 @@
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { REGEXP_ONLY_DIGITS } from "input-otp";
+import { sendEmailOTP, verifyEmailOTP } from "@/lib/actions/user.actions";
+import { OTPModalProps } from "@/types";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -7,18 +12,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from "@/components/ui/alert-dialog";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot
-} from "@/components/ui/input-otp";
-import { REGEXP_ONLY_DIGITS } from "input-otp";
-import { OTPModalProps } from "@/types";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
 import { Spinner } from "@/components/ui/spinner";
-import { sendEmailOTP, verifyEmailOTP } from "@/lib/actions/user.actions";
-import { useRouter } from "next/navigation";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
 const OTPModal = ({ accountId, email }: OTPModalProps) => {
   const router = useRouter();
