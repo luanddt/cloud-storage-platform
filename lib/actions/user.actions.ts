@@ -2,11 +2,12 @@
 
 import { ID, Query } from "node-appwrite";
 import { CreateAccountProps } from "@/types";
-import { createAdminClient } from "@/lib/appwrite";
+import { createAdminClient, createSessionClient } from "@/lib/appwrite";
 import { appwriteConfig } from "@/lib/appwrite/config";
 import { avatarPlaceholderUrl } from "@/constants";
 import { parseStringify } from "@/lib/utils";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 const handleError = (message: string, error: unknown): never => {
   console.error(`[Error] ${message}`, error);
@@ -100,5 +101,19 @@ export const verifyEmailOTP = async ({ accountId, password }: { accountId: strin
     return parseStringify({ sessionId: session.$id });
   } catch (error) {
     handleError("Failed to verify email OTP", error);
+  };
+};
+
+export const logout = async () => {
+  const { account } = await createSessionClient();
+
+  try {
+    await account.deleteSession("current");
+
+    (await cookies()).delete("appwrite-session");
+  } catch (error) {
+    handleError("Failed to logout", error);
+  } finally {
+    redirect("/login");
   };
 };
