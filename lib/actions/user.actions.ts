@@ -117,3 +117,23 @@ export const logout = async () => {
     redirect("/login");
   };
 };
+
+export const getCurrentUser = async () => {
+  try {
+    const { account, tablesDB } = await createSessionClient();
+
+    const result = await account.get();
+
+    const user = await tablesDB.listRows(
+      appwriteConfig.databaseId,
+      appwriteConfig.usersTableId,
+      [Query.equal("accountId", result.$id)]
+    );
+
+    if (user.total <= 0) return null;
+
+    return parseStringify(user.rows[0]);
+  } catch (error) {
+    console.log(error);
+  };
+};
