@@ -19,3 +19,9 @@ export interface SidebarProps {
   email: string;
   avatar: string;
 };
+
+export interface MobileNavigationProps {
+  fullName: string;
+  email: string;
+  avatar: string;
+};
