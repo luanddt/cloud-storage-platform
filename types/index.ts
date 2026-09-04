@@ -21,7 +21,39 @@ export interface SidebarProps {
 };
 
 export interface MobileNavigationProps {
+  $id: string;
+  accountId: string;
   fullName: string;
   email: string;
   avatar: string;
+};
+
+export interface UploadFileProps {
+  file: File;
+  ownerId: string;
+  accountId: string;
+  path: string;
+};
+
+export interface FileThumbnailProps {
+  name: string;
+  type: string;
+  extension: string;
+  size: number;
+  url?: string;
+  className?: string;
+  iconClassName?: string;
+};
+
+export type FileType = "document" | "image" | "video" | "audio" | "other";
+
+export interface FileUploadProps {
+  ownerId: string;
+  accountId: string;
+  onClose?: () => void;
+};
+
+export interface HeaderProps {
+  ownerId: string;
+  accountId: string;
 };

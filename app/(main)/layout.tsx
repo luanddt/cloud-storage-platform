@@ -22,7 +22,7 @@ const MainLayout = async ({ children }: Readonly<{ children: React.ReactNode }>)
       <div className="flex-1 flex flex-col">
         <MobileNavigation {...currentUser} />
 
-        <Header />
+        <Header ownerId={currentUser.$id} accountId={currentUser.accountId} />
 
         <main className="bg-main sm:p-7 p-5 sm:mr-7 sm:mb-7 sm:rounded-30 flex-1 overflow-auto transition-all">
           {children}

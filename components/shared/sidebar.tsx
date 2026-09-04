@@ -18,6 +18,7 @@ const Sidebar = ({ fullName, email, avatar }: SidebarProps) => {
           alt="Storage"
           width={52}
           height={52}
+          priority
         />
 
         <p className="logo-24 text-primary max-lg:hidden">Storage</p>

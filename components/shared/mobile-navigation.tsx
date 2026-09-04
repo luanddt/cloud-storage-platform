@@ -21,9 +21,12 @@ import FileUpload from "../file/file-upload";
 import { ModeToggle } from "../theme/mode-toggle";
 import { Button } from "../ui/button";
 import { logout } from "@/lib/actions/user.actions";
+import { useState } from "react";
 
-const MobileNavigation = ({ fullName, email, avatar }: MobileNavigationProps) => {
+const MobileNavigation = ({ $id, accountId, fullName, email, avatar }: MobileNavigationProps) => {
   const pathname = usePathname();
+
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <header className="p-5 sm:hidden flex-between">
@@ -38,7 +41,7 @@ const MobileNavigation = ({ fullName, email, avatar }: MobileNavigationProps) =>
 
       <FileSearch />
 
-      <Sheet>
+      <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetTrigger><Menu className="hover:opacity-80 cursor-pointer" /></SheetTrigger>
 
         <SheetContent showCloseButton={false}>
@@ -85,7 +88,11 @@ const MobileNavigation = ({ fullName, email, avatar }: MobileNavigationProps) =>
           <Separator />
 
           <div className="flex flex-col gap-5">
-            <FileUpload />
+            <FileUpload
+              ownerId={$id}
+              accountId={accountId}
+              onClose={() => setIsOpen(false)}
+            />
 
             <ModeToggle />
 

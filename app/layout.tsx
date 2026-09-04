@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import { Toaster } from "@/components/ui/toast";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import "./globals.css";
 
@@ -24,6 +25,8 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           disableTransitionOnChange
         >
           {children}
+
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

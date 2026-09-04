@@ -4,14 +4,15 @@ import { ModeToggle } from "@/components/theme/mode-toggle";
 import { logout } from "@/lib/actions/user.actions";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { HeaderProps } from "@/types";
 
-const Header = () => {
+const Header = ({ ownerId, accountId }: HeaderProps) => {
   return (
     <header className="py-7 sm:mr-7 sm:flex-between hidden">
       <FileSearch />
 
       <div className="flex items-center gap-4">
-        <FileUpload />
+        <FileUpload ownerId={ownerId} accountId={accountId} />
 
         <ModeToggle />
 
