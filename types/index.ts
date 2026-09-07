@@ -57,3 +57,7 @@ export interface HeaderProps {
   ownerId: string;
   accountId: string;
 };
+
+export interface MainProps {
+  params: Promise<{ type: string }>;
+};
