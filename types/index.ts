@@ -58,6 +58,6 @@ export interface HeaderProps {
   accountId: string;
 };
 
-export interface MainProps {
+export interface HomeProps {
   params: Promise<{ type: string }>;
 };

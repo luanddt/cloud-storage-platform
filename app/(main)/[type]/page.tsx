@@ -1,10 +1,16 @@
 import FileCard from "@/components/file/file-card";
 import FileSort from "@/components/file/file-sort";
 import { getFiles } from "@/lib/actions/file.actions";
-import { MainProps } from "@/types";
+import { HomeProps } from "@/types";
 import { Models } from "node-appwrite";
+import type { Metadata } from "next";
 
-const Main = async ({ params }: MainProps) => {
+export const metadata: Metadata = {
+  title: "Home - Storage",
+  description: "Cloud Storage Platform"
+};
+
+const Home = async ({ params }: HomeProps) => {
   const { type } = await params;
 
   const files = await getFiles();
@@ -33,7 +39,7 @@ const Main = async ({ params }: MainProps) => {
 
       {files.total > 0 ? (
         <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
-          {files.rows.map((file: Models.Document) => (
+          {files.rows.map((file: Models.Document & { name: string, type: string, extension: string, url: string, size: number }) => (
             <FileCard key={file.$id} file={file} />
           ))}
         </div>
@@ -44,4 +50,4 @@ const Main = async ({ params }: MainProps) => {
   );
 };
 
-export default Main;
+export default Home;
