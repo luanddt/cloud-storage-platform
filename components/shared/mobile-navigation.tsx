@@ -17,7 +17,7 @@ import { Separator } from "@/components/ui/separator";
 import { navItems } from "@/constants";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
-import FileUpload from "../file/file-upload";
+import FileUploader from "../file/file-uploader";
 import { ModeToggle } from "../theme/mode-toggle";
 import { Button } from "../ui/button";
 import { logout } from "@/lib/actions/user.actions";
@@ -88,7 +88,7 @@ const MobileNavigation = ({ $id, accountId, fullName, email, avatar }: MobileNav
           <Separator />
 
           <div className="flex flex-col gap-5">
-            <FileUpload
+            <FileUploader
               ownerId={$id}
               accountId={accountId}
               onClose={() => setIsOpen(false)}

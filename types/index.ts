@@ -61,3 +61,9 @@ export interface HeaderProps {
 export interface HomeProps {
   params: Promise<{ type: string }>;
 };
+
+export interface ActionType {
+  label: string;
+  icon: string;
+  value: string;
+};

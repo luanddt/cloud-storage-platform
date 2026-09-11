@@ -1,5 +1,5 @@
 import FileSearch from "@/components/file/file-search";
-import FileUpload from "@/components/file/file-upload";
+import FileUploader from "@/components/file/file-uploader";
 import { ModeToggle } from "@/components/theme/mode-toggle";
 import { logout } from "@/lib/actions/user.actions";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,7 @@ const Header = ({ ownerId, accountId }: HeaderProps) => {
       <FileSearch />
 
       <div className="flex items-center gap-4">
-        <FileUpload ownerId={ownerId} accountId={accountId} />
+        <FileUploader ownerId={ownerId} accountId={accountId} />
 
         <ModeToggle />
 

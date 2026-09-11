@@ -12,7 +12,7 @@ import FileThumbnail from "./file-thumbnail";
 import { uploadFile } from "@/lib/actions/file.actions";
 import { FileUploadProps } from "@/types";
 
-const FileUpload = ({ ownerId, accountId, onClose }: FileUploadProps) => {
+const FileUploader = ({ ownerId, accountId, onClose }: FileUploadProps) => {
   const path = usePathname();
 
   const [files, setFiles] = useState<File[]>([]);
@@ -107,4 +107,4 @@ const FileUpload = ({ ownerId, accountId, onClose }: FileUploadProps) => {
   );
 };
 
-export default FileUpload;
+export default FileUploader;

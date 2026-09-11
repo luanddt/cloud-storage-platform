@@ -48,7 +48,7 @@ const Sidebar = ({ fullName, email, avatar }: SidebarProps) => {
       </ul>
 
       <Image
-        src="/assets/images/files-bg.png"
+        src="/assets/images/files-2.png"
         alt="Files"
         width={253}
         height={209}

@@ -43,7 +43,7 @@ export const getFileIcon = (
     case "odt":
     case "pages":
     case "md":
-      return "/assets/icons/documents.svg";
+      return "/assets/icons/file-minus.svg";
 
     case "png":
     case "jpg":
@@ -77,7 +77,7 @@ export const getFileIcon = (
     default:
       switch (type) {
         case "document":
-          return "/assets/icons/documents.svg";
+          return "/assets/icons/file-minus.svg";
 
         case "image":
           return "/assets/icons/images.svg";
@@ -141,4 +141,8 @@ export const formatDateTime = (isoString: string | null | undefined) => {
   const year = date.getFullYear();
 
   return `${time}, ${day} ${month} ${year}`;
+};
+
+export const constructDownloadUrl = (bucketFileId: string) => {
+  return `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID}/files/${bucketFileId}/download?project=${process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID}`;
 };

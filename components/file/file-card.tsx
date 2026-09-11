@@ -1,10 +1,10 @@
 import { Models } from "node-appwrite";
 import FileThumbnail from "./file-thumbnail";
-import FileAction from "./file-action";
+import FileActions from "./file-actions";
 import { convertFileSize } from "@/lib/utils";
 import DateTime from "../shared/date-time";
 
-const FileCard = ({ file }: { file: Models.Document & { name: string, type: string, extension: string, url: string, size: number } }) => {
+const FileCard = ({ file }: { file: Models.Document & { name: string, type: string, extension: string, url: string, size: number, bucketFileId: string } }) => {
   return (
     <div className="bg-background p-4 rounded-20 flex flex-col gap-5">
       <div className="flex justify-between">
@@ -19,7 +19,7 @@ const FileCard = ({ file }: { file: Models.Document & { name: string, type: stri
         />
 
         <div className="flex flex-col justify-between items-end">
-          <FileAction />
+          <FileActions file={file} />
 
           <p className="body-1">
             {convertFileSize(file.size)}
