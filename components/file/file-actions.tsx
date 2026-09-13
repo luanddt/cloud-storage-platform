@@ -31,8 +31,18 @@ import { Spinner } from "../ui/spinner";
 import { renameFile } from "@/lib/actions/file.actions";
 import { usePathname } from "next/navigation";
 import { Input } from "../ui/input";
+import FileDetails from "./file-details";
 
-const FileActions = ({ file }: { file: Models.Document & { name: string, bucketFileId: string, extension: string } }) => {
+const FileActions = ({ file }: {
+  file: Models.Document & {
+    name: string;
+    bucketFileId: string;
+    extension: string;
+    type: string;
+    url: string;
+    size: number;
+  }
+}) => {
   const path = usePathname();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -85,6 +95,10 @@ const FileActions = ({ file }: { file: Models.Document & { name: string, bucketF
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
+        )}
+
+        {value === "details" && (
+          <FileDetails file={file} />
         )}
 
         {["rename", "share", "delete"].includes(value) && (
