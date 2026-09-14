@@ -5,7 +5,7 @@ import { convertFileSize } from "@/lib/utils";
 import DateTime from "../shared/date-time";
 import Link from "next/link";
 
-const FileCard = ({ file }: { file: Models.Document & { name: string, type: string, extension: string, url: string, size: number, bucketFileId: string } }) => {
+const FileCard = ({ file }: { file: Models.Document & { name: string, type: string, extension: string, url: string, size: number, bucketFileId: string, users: string[] } }) => {
   return (
     <div className="bg-background p-4 rounded-20 flex flex-col gap-5">
       <div className="flex justify-between">

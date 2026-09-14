@@ -28,10 +28,11 @@ import { constructDownloadUrl } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
 import { Spinner } from "../ui/spinner";
-import { renameFile } from "@/lib/actions/file.actions";
+import { renameFile, shareFile } from "@/lib/actions/file.actions";
 import { usePathname } from "next/navigation";
 import { Input } from "../ui/input";
 import FileDetails from "./file-details";
+import FileShare from "./file-share";
 
 const FileActions = ({ file }: {
   file: Models.Document & {
@@ -41,6 +42,7 @@ const FileActions = ({ file }: {
     type: string;
     url: string;
     size: number;
+    users: string[];
   }
 }) => {
   const path = usePathname();
@@ -50,12 +52,14 @@ const FileActions = ({ file }: {
   const [action, setAction] = useState<ActionType | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState(file.name);
+  const [emails, setEmails] = useState<string[]>([]);
 
   const closeAllModals = () => {
     setIsModalOpen(false);
     setIsDropdownOpen(false);
     setAction(null);
     setName(file.name);
+    setEmails([]);
   };
 
   const handleAction = async () => {
@@ -66,7 +70,8 @@ const FileActions = ({ file }: {
     let success = false;
 
     const actions = {
-      rename: () => renameFile({ fileId: file.$id, name, extension: file.extension, path })
+      rename: () => renameFile({ fileId: file.$id, name, extension: file.extension, path }),
+      share: () => shareFile({ fileId: file.$id, emails, path })
     };
 
     success = await actions[action.value as keyof typeof actions]();
@@ -76,7 +81,19 @@ const FileActions = ({ file }: {
     setIsLoading(false);
   };
 
-  const handleRemoveUser = async (email: string) => { };
+  const handleRemoveUser = async (email: string) => {
+    const updatedEmails = emails.filter((e) => e !== email);
+
+    const success = await shareFile({
+      fileId: file.$id,
+      emails: updatedEmails,
+      path
+    });
+
+    if (success) setEmails(updatedEmails);
+
+    closeAllModals();
+  };
 
   const renderDialogContent = () => {
     if (!action) return null;
@@ -99,6 +116,14 @@ const FileActions = ({ file }: {
 
         {value === "details" && (
           <FileDetails file={file} />
+        )}
+
+        {value === "share" && (
+          <FileShare
+            file={file}
+            onInputChange={setEmails}
+            onRemove={handleRemoveUser}
+          />
         )}
 
         {["rename", "share", "delete"].includes(value) && (

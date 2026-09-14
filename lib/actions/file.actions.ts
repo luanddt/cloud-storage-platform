@@ -117,3 +117,28 @@ export const renameFile = async ({ fileId, name, extension, path }: RenameFilePr
     handleError("Failed to rename file", error);
   };
 };
+
+export const shareFile = async ({ fileId, emails, path }: {
+  fileId: string;
+  emails: string[];
+  path: string;
+}) => {
+  const { tablesDB } = await createAdminClient();
+
+  try {
+    const updatedFile = await tablesDB.updateRow(
+      appwriteConfig.databaseId,
+      appwriteConfig.filesTableId,
+      fileId,
+      {
+        users: emails
+      }
+    );
+
+    revalidatePath(path);
+
+    return parseStringify(updatedFile);
+  } catch (error) {
+    handleError("Failed to share file", error);
+  };
+};
