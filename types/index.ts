@@ -74,3 +74,9 @@ export interface RenameFileProps {
   extension: string;
   path: string;
 };
+
+export interface DeleteFileProps {
+  fileId: string;
+  bucketFileId: string;
+  path: string;
+};

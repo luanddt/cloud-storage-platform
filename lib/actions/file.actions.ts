@@ -1,6 +1,6 @@
 "use server";
 
-import { RenameFileProps, UploadFileProps } from "@/types";
+import { DeleteFileProps, RenameFileProps, UploadFileProps } from "@/types";
 import { createAdminClient } from "@/lib/appwrite";
 import { InputFile } from "node-appwrite/file";
 import { appwriteConfig } from "@/lib/appwrite/config";
@@ -140,5 +140,27 @@ export const shareFile = async ({ fileId, emails, path }: {
     return parseStringify(updatedFile);
   } catch (error) {
     handleError("Failed to share file", error);
+  };
+};
+
+export const deleteFile = async ({ fileId, bucketFileId, path }: DeleteFileProps) => {
+  const { tablesDB, storage } = await createAdminClient();
+
+  try {
+    const deletedFile = await tablesDB.deleteRow(
+      appwriteConfig.databaseId,
+      appwriteConfig.filesTableId,
+      fileId
+    );
+
+    if (deletedFile) {
+      await storage.deleteFile(appwriteConfig.bucketId, bucketFileId);
+    };
+
+    revalidatePath(path);
+
+    return parseStringify({ status: "success" });
+  } catch (error) {
+    handleError("Failed to delete file", error);
   };
 };
