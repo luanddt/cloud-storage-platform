@@ -1,9 +1,10 @@
 import FileCard from "@/components/file/file-card";
 import FileSort from "@/components/file/file-sort";
 import { getFiles } from "@/lib/actions/file.actions";
-import { HomeProps } from "@/types";
+import { FileType, HomeProps } from "@/types";
 import { Models } from "node-appwrite";
 import type { Metadata } from "next";
+import { getFileTypesParams } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Home - Storage",
@@ -13,7 +14,9 @@ export const metadata: Metadata = {
 const Home = async ({ params }: HomeProps) => {
   const { type } = await params;
 
-  const files = await getFiles();
+  const types = getFileTypesParams(type) as FileType[];
+
+  const files = await getFiles({ types });
 
   return (
     <div className="flex flex-col gap-9">
