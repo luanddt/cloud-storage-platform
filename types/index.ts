@@ -60,6 +60,7 @@ export interface HeaderProps {
 
 export interface HomeProps {
   params: Promise<{ type: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 export interface ActionType {

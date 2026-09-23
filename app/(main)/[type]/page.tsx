@@ -11,12 +11,13 @@ export const metadata: Metadata = {
   description: "Cloud Storage Platform"
 };
 
-const Home = async ({ params }: HomeProps) => {
+const Home = async ({ params, searchParams }: HomeProps) => {
   const { type } = await params;
 
+  const searchText = ((await searchParams)?.query as string) || "";
   const types = getFileTypesParams(type) as FileType[];
 
-  const files = await getFiles({ types });
+  const files = await getFiles({ types, searchText });
 
   return (
     <div className="flex flex-col gap-9">

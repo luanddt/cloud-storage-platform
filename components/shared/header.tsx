@@ -8,7 +8,7 @@ import { HeaderProps } from "@/types";
 
 const Header = ({ ownerId, accountId }: HeaderProps) => {
   return (
-    <header className="py-7 sm:mr-7 sm:flex-between hidden">
+    <header className="py-7 sm:mr-7 sm:flex-between hidden gap-5">
       <FileSearch />
 
       <div className="flex items-center gap-4">
