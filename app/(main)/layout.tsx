@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   description: "Cloud Storage Platform"
 };
 
+export const dynamic = "force-dynamic";
+
 const MainLayout = async ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const currentUser = await getCurrentUser();
 
