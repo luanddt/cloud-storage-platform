@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   description: "Cloud Storage Platform"
 };
 
+export const dynamic = "force-dynamic";
+
 const Home = async ({ params, searchParams }: HomeProps) => {
   const { type } = await params;
 
