@@ -16,8 +16,9 @@ const Home = async ({ params, searchParams }: HomeProps) => {
 
   const searchText = ((await searchParams)?.query as string) || "";
   const types = getFileTypesParams(type) as FileType[];
+  const sort = ((await searchParams)?.sort as string) || "";
 
-  const files = await getFiles({ types, searchText });
+  const files = await getFiles({ types, searchText, sort });
 
   return (
     <div className="flex flex-col gap-9">
