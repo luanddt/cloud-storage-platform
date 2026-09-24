@@ -1,7 +1,7 @@
 "use server";
 
 import { DeleteFileProps, FileType, RenameFileProps, UploadFileProps } from "@/types";
-import { createAdminClient } from "@/lib/appwrite";
+import { createAdminClient, createSessionClient } from "@/lib/appwrite";
 import { InputFile } from "node-appwrite/file";
 import { appwriteConfig } from "@/lib/appwrite/config";
 import { ID, Models, Query } from "node-appwrite";
@@ -66,7 +66,8 @@ const createQueries = (
   currentUser: Models.Document & { email: string },
   types: string[],
   searchText: string,
-  sort: string
+  sort: string,
+  limit?: number
 ) => {
   const queries = [
     Query.or([
@@ -82,6 +83,7 @@ const createQueries = (
 
     queries.push(orderBy === "asc" ? Query.orderAsc(sortBy) : Query.orderDesc(sortBy));
   };
+  if (limit) queries.push(Query.limit(limit));
 
   return queries;
 };
@@ -89,11 +91,13 @@ const createQueries = (
 export const getFiles = async ({
   types = [],
   searchText = "",
-  sort = "$createdAt-desc"
+  sort = "$createdAt-desc",
+  limit
 }: {
   types: FileType[];
   searchText?: string;
   sort?: string;
+  limit?: number;
 }) => {
   const { tablesDB } = await createAdminClient();
 
@@ -102,7 +106,7 @@ export const getFiles = async ({
 
     if (!currentUser) throw new Error("User not found");
 
-    const queries = createQueries(currentUser, types, searchText, sort);
+    const queries = createQueries(currentUser, types, searchText, sort, limit);
 
     const files = await tablesDB.listRows(
       appwriteConfig.databaseId,
@@ -183,5 +187,48 @@ export const deleteFile = async ({ fileId, bucketFileId, path }: DeleteFileProps
     return parseStringify({ status: "success" });
   } catch (error) {
     handleError("Failed to delete file", error);
+  };
+};
+
+export async function getTotalSpaceUsed() {
+  try {
+    const { tablesDB } = await createSessionClient();
+
+    const currentUser = await getCurrentUser();
+
+    if (!currentUser) throw new Error("User is not authenticated.");
+
+    const files = await tablesDB.listRows(
+      appwriteConfig.databaseId,
+      appwriteConfig.filesTableId,
+      [Query.equal("owner", [currentUser.$id])]
+    );
+
+    const totalSpace = {
+      image: { size: 0, latestDate: "" },
+      document: { size: 0, latestDate: "" },
+      video: { size: 0, latestDate: "" },
+      audio: { size: 0, latestDate: "" },
+      other: { size: 0, latestDate: "" },
+      used: 0,
+      all: 2 * 1024 * 1024 * 1024
+    };
+
+    files.rows.forEach((file) => {
+      const fileType = file.type as FileType;
+      totalSpace[fileType].size += file.size;
+      totalSpace.used += file.size;
+
+      if (
+        !totalSpace[fileType].latestDate ||
+        new Date(file.$updatedAt) > new Date(totalSpace[fileType].latestDate)
+      ) {
+        totalSpace[fileType].latestDate = file.$updatedAt;
+      };
+    });
+
+    return parseStringify(totalSpace);
+  } catch (error) {
+    handleError("Error calculating total space used:, ", error);
   };
 };
