@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: LayoutProps<"/">) => {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body className={`bg-background ${poppins.className} text-foreground`}>
         {children}
       </body>
